@@ -82,6 +82,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Modelos\Usuario.cs" />
+    <Content Include="App_Code\Modelos\Libro.cs" />
     <Compile Include="Maestras\MaestraGeneral.Master.cs">
       <DependentUpon>MaestraGeneral.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -92,7 +94,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Code\" />
+    <Folder Include="App_Code\Controladores\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

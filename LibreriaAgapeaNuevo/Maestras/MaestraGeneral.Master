@@ -7,13 +7,70 @@
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+    <style type="text/css">
+        #contenedor{
+            position:relative;
+            width:900px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        #contenido{
+            position:absolute;
+            width:880px;
+            height:800px;
+            margin-left:10px;
+            margin-top:40px;
+        }
+        #menuCategorias{
+            position:absolute;
+            width:200px;
+            height:790px;
+            float:left;
+            
+        }
+        #usuario{
+            text-align:right;
+        }
+
+        #variables{
+            position:absolute;
+            width:680px;
+            margin-top:810px;
+            height:150px;
+        }
+       
+    </style>
 </head>
+
 <body>
     <form id="form1" runat="server">
-    <div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-        
-        </asp:ContentPlaceHolder>
+
+    <div id="contenedor">
+
+            <div id="cabecera" >
+                <asp:Image ID="Image1" runat="server" ImageUrl="~/img/cabecera01.png" Width="900px" />   
+            </div>
+            
+            <div id="usuario">
+                <asp:Label ID="LabelUsuarioRegistrado" runat="server" Text="Label"></asp:Label>
+            </div>
+
+            <div id="contenido">
+            <div id="menuCategorias">
+                <asp:TreeView ID="TreeViewCategorias" runat="server" Height="198px" Width="196px"></asp:TreeView>
+            </div>
+
+            <div id="contDinamico">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
+            <div id="variables">
+            <asp:TextBox ID="TxtBoxVariables" runat="server" Height="140px" TextMode="MultiLine" Width="660px"></asp:TextBox>
+            </div>
+    </div>
+
     </div>
     </form>
 </body>
