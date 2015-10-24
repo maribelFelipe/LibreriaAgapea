@@ -16,5 +16,6 @@ namespace LibreriaAgapeaNuevo.App_Code.Modelos
         public Double precio { get; set; }
         public String categoria { get; set; }
         public String subcategoria { get; set; }
+        public String resumen { get; set; }
     }
 }

@@ -66,6 +66,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="controlesUsuario\miniControlLibro.ascx" />
+    <Content Include="img\btIdentificar.PNG" />
+    <Content Include="img\btRegistrar.PNG" />
+    <Content Include="img\cabecera.PNG" />
+    <Content Include="Inicio.aspx" />
     <Content Include="packages.config" />
     <Content Include="Maestras\MaestraGeneral.Master" />
     <None Include="Web.Debug.config">
@@ -79,11 +84,36 @@
     <Content Include="Ficheros\librosStock.txt" />
     <Content Include="Ficheros\usuarios.txt" />
     <Content Include="img\cabecera01.png" />
+    <Content Include="Registro.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\Modelos\Usuario.cs" />
-    <Content Include="App_Code\Modelos\Libro.cs" />
+    <Compile Include="App_Code\Controladores\controlador_Acceso_Ficheros.cs" />
+    <Compile Include="App_Code\Controladores\controlador_Vista_Inicio.cs" />
+    <Compile Include="App_Code\Controladores\controlador_Vista_Registro.cs" />
+    <Compile Include="controlesUsuario\miniControlLibro.ascx.cs">
+      <DependentUpon>miniControlLibro.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controlesUsuario\miniControlLibro.ascx.designer.cs">
+      <DependentUpon>miniControlLibro.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Inicio.aspx.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inicio.aspx.designer.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Registro.aspx.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registro.aspx.designer.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\Modelos\Usuario.cs" />
+    <Compile Include="App_Code\Modelos\Libro.cs" />
     <Compile Include="Maestras\MaestraGeneral.Master.cs">
       <DependentUpon>MaestraGeneral.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -93,9 +123,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Code\Controladores\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -3,9 +3,6 @@ Rafael:rafael@gmail.com:12345678:Rafael:Gomez de Lama
 Ana:ana@gmail.com:12345678:Ana:Diaz López
 pepe:pepe@hotmail.com:12345678:pepe:gonzalez ruiz
 Juan:juan@gmail.com:12345678:juan:lopez lopez
-fdsfdf:sdfsdf@fdsf.com:12345678:asd:asd
-jose:jose@gmail.com:12345678:Jose:ffffffff
-Ana:ana@hotmail.com:12345678:Ana:ddddd
-fdsfdf:dfsdff@gmail.com:87654321:asd:fsdfadf fdfsdafdsf
 Luisa:luisa@gmail.com:12345678:Luisa:Felipe
-hggi:asd@asd.com:12345678:asd:asd
+Alberto:alberto@gmail.com:12345678:Alberto:López Cuadrado
+Laura:laura@gmail.com:12345678:Laura:Gómez Fernández
