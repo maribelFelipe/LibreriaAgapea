@@ -39,6 +39,11 @@
             margin-top:810px;
             height:150px;
         }
+        #buscador{
+            position:absolute;
+            margin-left:420px;
+            
+        }
        
     </style>
 </head>
@@ -47,13 +52,21 @@
     <form id="form1" runat="server">
 
     <div id="contenedor">
-
+            <div id="usuario">
+                <asp:Label ID="LabelUsuarioRegistrado" runat="server" Text="Label"></asp:Label>
+            </div>
+            
             <div id="cabecera" >
                 <asp:Image ID="Image1" runat="server" ImageUrl="~/img/cabecera01.png" Width="900px" />   
             </div>
             
-            <div id="usuario">
-                <asp:Label ID="LabelUsuarioRegistrado" runat="server" Text="Label"></asp:Label>
+            <div id="buscador">
+                <asp:TextBox ID="TxtBxBuscador" runat="server"></asp:TextBox>
+                <asp:RadioButton ID="BuscarTitulo" runat="server" GroupName="opciones" Text="Titulo"/>
+                <asp:RadioButton ID="BuscarAutor" runat="server" GroupName="opciones" Text="Autor"/>
+                <asp:RadioButton ID="BuscarISBN" runat="server" GroupName="opciones" Text="ISBN"/>
+                <asp:RadioButton ID="BuscarEditorial" runat="server" GroupName="opciones" Text="Editorial"/>
+                <asp:Button ID="BtBuscador" runat="server" Text="Buscar" />
             </div>
 
             <div id="contenido">

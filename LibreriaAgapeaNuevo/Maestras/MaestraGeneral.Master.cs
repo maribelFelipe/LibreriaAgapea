@@ -12,15 +12,22 @@ namespace LibreriaAgapeaNuevo.Maestras
     public partial class MaestraGeneral : System.Web.UI.MasterPage
     {
         private Dictionary<String, Libro> coleccionLibros;
+        private controlador_Acceso_Ficheros controladorAccesoFicheros = new controlador_Acceso_Ficheros();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
             //-------- carga del TreeView ---------
-            controlador_Vista_Inicio micontrol = new controlador_Vista_Inicio();
-            coleccionLibros = micontrol.RecuperarLibrosMasVendidos();
+            controlador_Vista_Inicio controlVistaInicio = new controlador_Vista_Inicio();
+            coleccionLibros = controlVistaInicio.RecuperarLibrosMasVendidos();
 
-            CargaTreeView(micontrol.RecuperarCatySub());
+            if (!this.IsPostBack)
+            {
+                CargaTreeView(controlVistaInicio.RecuperarCatySub());
 
+            }
+
+ 
         }
 
         private void CargaTreeView(Dictionary<String, List<String>> datos)
@@ -32,5 +39,18 @@ namespace LibreriaAgapeaNuevo.Maestras
             }); //...asi añadimos las subcategorias a cada nodo del treeview que representa una categoria...
 
         }
+
+
+        protected void BtBuscador_Click (object sender, System.Web.UI.ImageClickEventArgs e)
+        {
+            
+            if (BuscarTitulo.Checked)
+            {
+
+            }
+            
+        }
+
+
     }
 }

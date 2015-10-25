@@ -13,33 +13,48 @@ namespace LibreriaAgapeaNuevo
     public partial class Inicio : System.Web.UI.Page
     {
         private controlador_Vista_Inicio controladorVistaInicio = new controlador_Vista_Inicio();
+        List<Libro> listaLibros = new List<Libro>();
+        
+
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             recuperarSesion();
             mostrar();
-            TreeView arbolMaster = (TreeView)this.Master.FindControl("TreeViewCategorias");
+            
 
 
             if (!this.IsPostBack)
             {
-                cargarTabla();
+                listaLibros = controladorVistaInicio.devuelveLibros();
+                cargarTabla(listaLibros);
          
             }
 
             else
             { //hay postback, no es la 1º vez que se carga la pagina pq ha habido algun evento sobre algun componente de la pagina...detectamos si es del treeview
+
+                //TreeView arbolMaster = (TreeView)this.Master.FindControl("TreeViewCategorias");
+
+                //string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
+
+                String eventarget = this.Request.Params.GetValues("__EVENTTARGET")[0];
+
+                List<Libro> librosInformatica = controladorVistaInicio.BuscarLibrosCategoria("categoria", "Informatica");
+
                 switch (this.Request.Params.GetValues("__EVENTTARGET")[0])
                 {
-                    case "arbolMaster": //lo ha provocado un nodo del treeview, viendo el __EVENTARGUMENTS se si es una categoria o una subcategoria:
+                    case "ctl00$TreeViewCategorias": //lo ha provocado un nodo del treeview, viendo el __EVENTARGUMENTS se si es una categoria o una subcategoria:
                         string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
-                        Libro[] LibrosCat = valueNodoTreeview.Contains("subcategoria") ? controladorVistaInicio.BuscarLibrosCategoria("subcategoria", valueNodoTreeview.Split(new char[] { ':' })[2]) : controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[1]);
+                        List<Libro> LibrosCat = valueNodoTreeview.Contains("scategoria") ? controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[1]) :
+                                                controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[2]);
                         cargarTabla(LibrosCat);
                         break;
-                };
 
-
+                    case "Buscador":
+                        break;
+                }
 
             };
 
@@ -47,48 +62,12 @@ namespace LibreriaAgapeaNuevo
 
         }
 
-        private void cargarTabla(Libro[] LibrosCat)
+
+
+        private void cargarTabla(List<Libro> listaLibros)
         {
-            int contador = 0;
-
-            for (int i = 0; i < 6; i++)
-            {
-                miTablaInicio.Rows.Add(new TableRow());
-
-
-                for (int j = 0; j < 2; j++)
-                {
-
-                    if (contador < LibrosCat.Length)
-                    {
-
-                        miniControlLibro unlibro = (miniControlLibro)this.LoadControl("~/controlesUsuario/miniControlLibro.ascx");
-                        TableCell celda = new TableCell();
-
-                        miTablaInicio.Rows[i].Cells.Add(celda);
-                        unlibro.TituloControl = LibrosCat[contador].titulo;
-                        unlibro.AutorControl = LibrosCat[contador].autor;
-                        unlibro.EditorialControl = LibrosCat[contador].editorial;
-                        unlibro.ISBNControl = LibrosCat[contador].ISBN10;
-                        unlibro.PrecioControl = LibrosCat[contador].precio.ToString();
-
-                        celda.Controls.Add(unlibro);
-
-
-                        contador += 1;
-                    }
-
-
-
-                }
-            }
-        }
-
-
-        private void cargarTabla()
-        {
-            List<Libro> listaLibros = new List<Libro>();
-            listaLibros = controladorVistaInicio.devuelveLibros();
+            
+            
 
 
 

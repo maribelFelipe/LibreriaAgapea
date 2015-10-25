@@ -51,21 +51,13 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
             List<string> filas = ficheros.leeDatosFichero(ficheroLibros);
 
 
-            /* .... recuperamos de todas las lineas del fichero la categoria:subcategoria
-             * .....una consulta de este tipo:
-             * 
-            List<string> catysubcat = (from linea in miaccesoFichero.RecuperaLineasFichero() 
-                      let categ = linea.Split(new char[] { ':' })[7]
-                      let subcat = linea.Split(new char[] { ':' })[8]
-                      select  categ + ":" + subcat).Distinct().ToList();
-             *              
-            */
             List<string> catysubcat = filas.Select(f => f.Split(new char[] { ':' })[7] + ":" + f.Split(new char[] { ':' })[8]).Distinct().ToList();
 
 
             foreach (string tupla in catysubcat)
             {
                 string categoria = tupla.Split(new char[] { ':' })[0];
+
                 if (!CategoriasySubcategorias.Keys.Contains(categoria))
                 {
                     List<string> subcategorias = (from elemento in catysubcat
@@ -106,11 +98,21 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
             return coleccionLibros;
         }
 
-        public Libro[] BuscarLibrosCategoria(string criterio, string valor)
+
+
+
+        public List<Libro> BuscarLibrosCategoria(string criterio, string valor)
         {
             Func<string, bool> Filtro;
-            if (criterio == "categoria") { Filtro = delegate (string fila) { return fila.Split(new char[] { ':' })[7] == valor; }; } else { Filtro = delegate (string fila) { return fila.Split(new char[] { ':' })[8] == valor; }; };
 
+            if (criterio == "categoria") {
+                Filtro = delegate (string fila) { return fila.Split(new char[] { ':' })[7] == valor; };
+            }
+
+            else {
+                Filtro = delegate (string fila) { return fila.Split(new char[] { ':' })[8] == valor; };
+            };
+    
 
             return ficheros.leeDatosFichero(ficheroLibros).Where(Filtro).Select(delegate (string linea)
             {
@@ -128,7 +130,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
                     subcategoria = campos[8],
                     resumen = campos[9]
                 };
-            }).ToArray();
+            }).ToList();
         }
 
 

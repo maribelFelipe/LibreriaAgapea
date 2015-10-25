@@ -31,6 +31,15 @@ namespace LibreriaAgapeaNuevo.Maestras {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// LabelUsuarioRegistrado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelUsuarioRegistrado;
+        
+        /// <summary>
         /// Image1 control.
         /// </summary>
         /// <remarks>
@@ -40,13 +49,58 @@ namespace LibreriaAgapeaNuevo.Maestras {
         protected global::System.Web.UI.WebControls.Image Image1;
         
         /// <summary>
-        /// LabelUsuarioRegistrado control.
+        /// TxtBxBuscador control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelUsuarioRegistrado;
+        protected global::System.Web.UI.WebControls.TextBox TxtBxBuscador;
+        
+        /// <summary>
+        /// BuscarTitulo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton BuscarTitulo;
+        
+        /// <summary>
+        /// BuscarAutor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton BuscarAutor;
+        
+        /// <summary>
+        /// BuscarISBN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton BuscarISBN;
+        
+        /// <summary>
+        /// BuscarEditorial control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton BuscarEditorial;
+        
+        /// <summary>
+        /// BtBuscador control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtBuscador;
         
         /// <summary>
         /// TreeViewCategorias control.
