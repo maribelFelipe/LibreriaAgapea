@@ -52,8 +52,7 @@ namespace LibreriaAgapeaNuevo
                         cargarTabla(LibrosCat);
                         break;
 
-                    case "Buscador":
-                        break;
+                   
                 }
 
             };
@@ -66,11 +65,6 @@ namespace LibreriaAgapeaNuevo
 
         private void cargarTabla(List<Libro> listaLibros)
         {
-            
-            
-
-
-
             int contador = 0;
 
             for (int i = 0; i < 6; i++)
@@ -138,6 +132,70 @@ namespace LibreriaAgapeaNuevo
             }
 
             TxtBoxVariables.Text = mensaje;
+        }
+
+
+        protected void BtBuscador_Click(object sender, EventArgs e)
+        {
+            if (RadioBtBuscar.SelectedItem != null)
+            {
+                // --- Cogemos nombre del radiobutton y valor introducido en el en textoboxbuscar ------
+                string filtro = RadioBtBuscar.SelectedValue; // valores: autor, titulo, editorial, isbn
+                string valor = TxtBxBuscador.Text; // valor introducido por el usuario
+
+
+                // ---- cargo lista de todos los libros disponibles ----------
+                listaLibros = controladorVistaInicio.devuelveLibros();
+
+
+                //--- lista que contendrá los libros filtrados --------
+                List<Libro> listaLibrosFiltrado = new List<Libro>();
+
+                switch (filtro)
+                {
+                    case "Titulo":
+
+                        listaLibrosFiltrado = (from otrolibro in listaLibros
+                                               let tituloFiltrado = otrolibro.titulo
+                                               where tituloFiltrado.Contains(valor)
+                                               select otrolibro).ToList();
+
+                        cargarTabla(listaLibrosFiltrado);
+                        TxtBxBuscador.Text = "";
+                                             
+                    break;
+
+                    case "Autor":
+                        listaLibrosFiltrado = (from otrolibro in listaLibros
+                                               let autorFiltrado = otrolibro.autor
+                                               where autorFiltrado.Contains(valor)
+                                               select otrolibro).ToList();
+
+                        cargarTabla(listaLibrosFiltrado);
+                        TxtBxBuscador.Text = "";
+                        break;
+
+                    case "ISBN":
+                        listaLibrosFiltrado = (from otrolibro in listaLibros
+                                               let ISBNFiltrado = otrolibro.ISBN10
+                                               where ISBNFiltrado.Contains(valor)
+                                               select otrolibro).ToList();
+
+                        cargarTabla(listaLibrosFiltrado);
+                        TxtBxBuscador.Text = "";
+                        break;
+
+                    case "Editorial":
+                        listaLibrosFiltrado = (from otrolibro in listaLibros
+                                               let EditorialFiltrado = otrolibro.editorial
+                                               where EditorialFiltrado.Contains(valor)
+                                               select otrolibro).ToList();
+
+                        cargarTabla(listaLibrosFiltrado);
+                        TxtBxBuscador.Text = "";
+                        break;
+                }
+            }
         }
 
     }

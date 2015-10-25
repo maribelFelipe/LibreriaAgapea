@@ -7,13 +7,12 @@ using System.Web.UI.WebControls;
 using LibreriaAgapeaNuevo.App_Code.Modelos;
 using LibreriaAgapeaNuevo.App_Code.Controladores;
 
+
 namespace LibreriaAgapeaNuevo.Maestras
 {
     public partial class MaestraGeneral : System.Web.UI.MasterPage
     {
         private Dictionary<String, Libro> coleccionLibros;
-        private controlador_Acceso_Ficheros controladorAccesoFicheros = new controlador_Acceso_Ficheros();
-
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,7 +23,7 @@ namespace LibreriaAgapeaNuevo.Maestras
             if (!this.IsPostBack)
             {
                 CargaTreeView(controlVistaInicio.RecuperarCatySub());
-
+                
             }
 
  
@@ -40,17 +39,6 @@ namespace LibreriaAgapeaNuevo.Maestras
 
         }
 
-
-        protected void BtBuscador_Click (object sender, System.Web.UI.ImageClickEventArgs e)
-        {
-            
-            if (BuscarTitulo.Checked)
-            {
-
-            }
-            
-        }
-
-
+        
     }
 }

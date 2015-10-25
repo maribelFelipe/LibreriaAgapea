@@ -41,7 +41,8 @@
         }
         #buscador{
             position:absolute;
-            margin-left:420px;
+            margin-left:400px;
+            
             
         }
        
@@ -60,15 +61,6 @@
                 <asp:Image ID="Image1" runat="server" ImageUrl="~/img/cabecera01.png" Width="900px" />   
             </div>
             
-            <div id="buscador">
-                <asp:TextBox ID="TxtBxBuscador" runat="server"></asp:TextBox>
-                <asp:RadioButton ID="BuscarTitulo" runat="server" GroupName="opciones" Text="Titulo"/>
-                <asp:RadioButton ID="BuscarAutor" runat="server" GroupName="opciones" Text="Autor"/>
-                <asp:RadioButton ID="BuscarISBN" runat="server" GroupName="opciones" Text="ISBN"/>
-                <asp:RadioButton ID="BuscarEditorial" runat="server" GroupName="opciones" Text="Editorial"/>
-                <asp:Button ID="BtBuscador" runat="server" Text="Buscar" />
-            </div>
-
             <div id="contenido">
             <div id="menuCategorias">
                 <asp:TreeView ID="TreeViewCategorias" runat="server" Height="198px" Width="196px"></asp:TreeView>
