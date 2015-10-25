@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="controlesUsuario\miniControlLibro.ascx" />
+    <Content Include="controlesUsuario\miniControlLibroSeleccionado.ascx" />
     <Content Include="img\btIdentificar.PNG" />
     <Content Include="img\btRegistrar.PNG" />
     <Content Include="img\cabecera.PNG" />
@@ -97,6 +98,13 @@
     </Compile>
     <Compile Include="controlesUsuario\miniControlLibro.ascx.designer.cs">
       <DependentUpon>miniControlLibro.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controlesUsuario\miniControlLibroSeleccionado.ascx.cs">
+      <DependentUpon>miniControlLibroSeleccionado.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controlesUsuario\miniControlLibroSeleccionado.ascx.designer.cs">
+      <DependentUpon>miniControlLibroSeleccionado.ascx</DependentUpon>
     </Compile>
     <Compile Include="Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>

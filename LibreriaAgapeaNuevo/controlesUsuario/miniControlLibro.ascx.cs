@@ -5,11 +5,15 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using LibreriaAgapeaNuevo.App_Code.Modelos;
+using LibreriaAgapeaNuevo.App_Code.Controladores;
 
 namespace LibreriaAgapeaNuevo.controlesUsuario
 {
     public partial class miniControlLibro : System.Web.UI.UserControl
     {
+
+        private controlador_Vista_Inicio controladorVistaInicio = new controlador_Vista_Inicio();
+
         #region ------ propiedades de mis controles ---------------
 
         private string _titulo;
@@ -84,10 +88,40 @@ namespace LibreriaAgapeaNuevo.controlesUsuario
 
         }
 
-
+  
         #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+        }
+
+        protected void linkbttitulo_Click(object sender, EventArgs e)
+        {
+
+
+            miniControlLibroSeleccionado unlibro = (miniControlLibroSeleccionado)this.LoadControl("~/controlesUsuario/miniControlLibroSelecionado.ascx");
+
+            List<Libro> listaLibros = new List<Libro>();
+            listaLibros = controladorVistaInicio.devuelveLibros();
+
+            Libro libro = new Libro();
+
+            libro = (from otrolibro in listaLibros
+                     let tituloFiltrado = otrolibro.titulo
+                     where tituloFiltrado == linkbttitulo.Text
+                     select otrolibro).Single();
+
+
+            unlibro.TituloControl = libro.titulo;
+            unlibro.EditorialControl = libro.editorial;
+            unlibro.AutorControl = libro.autor;
+            unlibro.PrecioControl = libro.precio.ToString();
+            unlibro.ISBN10Control = libro.ISBN10;
+            unlibro.ISBN13Control = libro.ISBN13;
+            unlibro.NumPaginasControl = libro.numPaginas.ToString();
+            unlibro.ResumenControl = libro.resumen;
+
+
 
         }
     }

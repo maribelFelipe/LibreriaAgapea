@@ -13,7 +13,7 @@ namespace LibreriaAgapeaNuevo
     public partial class Inicio : System.Web.UI.Page
     {
         private controlador_Vista_Inicio controladorVistaInicio = new controlador_Vista_Inicio();
-        List<Libro> listaLibros = new List<Libro>();
+        private List<Libro> listaLibros = new List<Libro>();
         
 
 
@@ -94,7 +94,7 @@ namespace LibreriaAgapeaNuevo
                         contador += 1;
                     }
 
-
+                    
                 }
 
 
@@ -133,6 +133,9 @@ namespace LibreriaAgapeaNuevo
 
             TxtBoxVariables.Text = mensaje;
         }
+
+
+
 
 
         protected void BtBuscador_Click(object sender, EventArgs e)
