@@ -95,34 +95,6 @@ namespace LibreriaAgapeaNuevo.controlesUsuario
             
         }
 
-        protected void linkbttitulo_Click(object sender, EventArgs e)
-        {
 
-
-            miniControlLibroSeleccionado unlibro = (miniControlLibroSeleccionado)this.LoadControl("~/controlesUsuario/miniControlLibroSelecionado.ascx");
-
-            List<Libro> listaLibros = new List<Libro>();
-            listaLibros = controladorVistaInicio.devuelveLibros();
-
-            Libro libro = new Libro();
-
-            libro = (from otrolibro in listaLibros
-                     let tituloFiltrado = otrolibro.titulo
-                     where tituloFiltrado == linkbttitulo.Text
-                     select otrolibro).Single();
-
-
-            unlibro.TituloControl = libro.titulo;
-            unlibro.EditorialControl = libro.editorial;
-            unlibro.AutorControl = libro.autor;
-            unlibro.PrecioControl = libro.precio.ToString();
-            unlibro.ISBN10Control = libro.ISBN10;
-            unlibro.ISBN13Control = libro.ISBN13;
-            unlibro.NumPaginasControl = libro.numPaginas.ToString();
-            unlibro.ResumenControl = libro.resumen;
-
-
-
-        }
     }
 }

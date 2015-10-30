@@ -51,7 +51,13 @@ namespace LibreriaAgapeaNuevo
                                                 controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[2]);
                         cargarTabla(LibrosCat);
                         break;
-
+                     default:
+                        if (this.Request.Params["__EVENTTARGET"].Contains("lnkbttitulo"))
+                        {
+                            string isbn_seleccionado = ((string)this.Request.Params["__EVENTTARGET"]).Split('$')[3].Replace("lnkbttitulo", "");
+                            Response.Redirect("VistaDetalleLibro.aspx?ISBNlibro=" + isbn_seleccionado);
+                        }
+                        break;
                    
                 }
 
@@ -87,6 +93,8 @@ namespace LibreriaAgapeaNuevo
                         unlibro.EditorialControl = listaLibros[contador].editorial;
                         unlibro.ISBNControl = listaLibros[contador].ISBN10;
                         unlibro.PrecioControl = listaLibros[contador].precio.ToString();
+
+                        ((LinkButton)unlibro.FindControl("linkbttitulo")).ID += listaLibros[contador].ISBN10.ToString();
 
                         celda.Controls.Add(unlibro);
 
