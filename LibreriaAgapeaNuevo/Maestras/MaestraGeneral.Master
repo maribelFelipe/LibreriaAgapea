@@ -69,7 +69,7 @@
                     <asp:ListItem Text="ISBN" Value="ISBN"></asp:ListItem>
                     <asp:ListItem Text="Editorial" Value="Editorial"></asp:ListItem>
                 </asp:RadioButtonList>
-                <asp:Button ID="BtBuscador" runat="server" Text="Buscar" OnClick="BtBuscador_Click"/>
+                <asp:Button ID="BtBuscador" runat="server" Text="Buscar" />
             </div>
             
             <div id="contenido">

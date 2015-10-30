@@ -34,7 +34,8 @@ namespace LibreriaAgapeaNuevo
             }
 
             else
-            {
+            {   
+                //Postback del TreeView
                 if (this.Request.Params.GetValues("__EVENTTARGET")[0] == "ctl00$TreeViewCategorias")
                 {
                     string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
@@ -45,23 +46,18 @@ namespace LibreriaAgapeaNuevo
                 }
 
 
+                //Postback de titulo de un libro
                 else if (this.Request.Params["__EVENTTARGET"].Contains("linkbttitulo"))
                 {
                     string isbn_seleccionado = ((string)this.Request.Params["__EVENTTARGET"]).Split('$')[3].Replace("linkbttitulo", "");
                     Response.Redirect("VistaDetalleLibro.aspx?ISBNlibro=" + isbn_seleccionado);
                 }
-                else if (this.Request.Params.Keys.Cast<String>().Contains("BtBuscador")) {
-                    string filtro = ((ListItem)((RadioButtonList)this.Master.FindControl("RadioBtBuscar")).Items.Cast<ListItem>().Select(elemento => { if (elemento.Selected) { return elemento; } else {  } })).ToString;
-                   
-                }
 
-                /*
-                else if (buscador.Text != "")
-                {
 
-                    String filtro = (String)this.Request.QueryString["filtro"];
-                    String valor = (String)this.Request.QueryString["valor"];
-
+                // Postback buscador
+                else if (this.Request.Params.Keys.Cast<String>().Contains("ctl00$RadioBtBuscar")) {
+                    string filtro = ((RadioButtonList)this.Master.FindControl("RadioBtBuscar")).SelectedItem.Text;
+                    string valor = ((TextBox)this.Master.FindControl("TxtBxBuscador")).Text;
 
                     // ---- cargo lista de todos los libros disponibles ----------
                     listaLibros = controladorVistaInicio.devuelveLibros();
@@ -104,7 +100,7 @@ namespace LibreriaAgapeaNuevo
                     cargarTabla(listaLibrosFiltrado);
                     buscador.Text = "";
                 }
-                */
+                
                    
                 }
 

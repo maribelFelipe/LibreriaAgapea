@@ -17,6 +17,7 @@ namespace LibreriaAgapeaNuevo
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            mostrar();
 
             if (!this.IsPostBack)
             {
@@ -54,12 +55,26 @@ namespace LibreriaAgapeaNuevo
 
             }
 
-            else
+           else
             {
                 Response.Redirect("Inicio.aspx");
             }
 
           
         }
+        private void mostrar()
+        {
+            String mensaje = "";
+
+            TextBox TxtBoxVariables = (TextBox)this.Master.FindControl("TxtBoxVariables");
+
+            foreach (String clave in this.Request.Params.Keys)
+            {
+                mensaje += "clave:_" + clave + "--------------valor:_" + this.Request.Params[clave].ToString() + "\n";
+            }
+
+            TxtBoxVariables.Text = mensaje;
+        }
+
     }
 }
