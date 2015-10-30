@@ -18,33 +18,48 @@ namespace LibreriaAgapeaNuevo
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            string isbnlibro = (String)this.Request.QueryString["ISBNlibro"];
+            if (!this.IsPostBack)
+            {
 
-            miniControlLibroSeleccionado unlibro = (miniControlLibroSeleccionado)this.LoadControl("~/controlesUsuario/miniControlLibroSelecionado.ascx");
+                string isbnlibro = (String)this.Request.QueryString["ISBNlibro"];
 
-            List<Libro> listaLibros = new List<Libro>();
-            listaLibros = controladorVistaInicio.devuelveLibros();
+                miniControlLibroSeleccionado unlibro = (miniControlLibroSeleccionado)this.LoadControl("~/controlesUsuario/miniControlLibroSeleccionado.ascx");
 
-            Libro libro = new Libro();
+                List<Libro> listaLibros = new List<Libro>();
+                listaLibros = controladorVistaInicio.devuelveLibros();
 
-            libro = (from otrolibro in listaLibros
-                     let isbn = otrolibro.ISBN10
-                     where isbn == isbnlibro
-                     select otrolibro).SingleOrDefault();
+                Libro libro = new Libro();
 
+                libro = (from otrolibro in listaLibros
+                         let isbn = otrolibro.ISBN10.ToString()
+                         where isbn == isbnlibro
+                         select otrolibro).SingleOrDefault();
 
-            unlibro.TituloControl = libro.titulo;
-            unlibro.EditorialControl = libro.editorial;
-            unlibro.AutorControl = libro.autor;
-            unlibro.PrecioControl = libro.precio.ToString();
-            unlibro.ISBN10Control = libro.ISBN10;
-            unlibro.ISBN13Control = libro.ISBN13;
-            unlibro.NumPaginasControl = libro.numPaginas.ToString();
-            unlibro.ResumenControl = libro.resumen;
+                TableDetalleLibro.Rows.Add(new TableRow());
 
+                TableCell celda = new TableCell();
 
+                TableDetalleLibro.Rows[0].Cells.Add(celda);
 
-        
-    }
+                unlibro.TituloControl = libro.titulo;
+                unlibro.EditorialControl = libro.editorial;
+                unlibro.AutorControl = libro.autor;
+                unlibro.PrecioControl = libro.precio.ToString();
+                unlibro.ISBN10Control = libro.ISBN10;
+                unlibro.ISBN13Control = libro.ISBN13;
+                unlibro.NumPaginasControl = libro.numPaginas.ToString();
+                unlibro.ResumenControl = libro.resumen;
+
+                celda.Controls.Add(unlibro);
+
+            }
+
+            else
+            {
+                Response.Redirect("Inicio.aspx");
+            }
+
+          
+        }
     }
 }

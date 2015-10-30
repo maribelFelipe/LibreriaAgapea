@@ -22,6 +22,7 @@ namespace LibreriaAgapeaNuevo
         {
             recuperarSesion();
             mostrar();
+            TextBox buscador = (TextBox)this.Master.FindControl("TxtBxBuscador");
             
 
 
@@ -29,39 +30,85 @@ namespace LibreriaAgapeaNuevo
             {
                 listaLibros = controladorVistaInicio.devuelveLibros();
                 cargarTabla(listaLibros);
-         
+                
             }
 
             else
-            { //hay postback, no es la 1º vez que se carga la pagina pq ha habido algun evento sobre algun componente de la pagina...detectamos si es del treeview
-
-                //TreeView arbolMaster = (TreeView)this.Master.FindControl("TreeViewCategorias");
-
-                //string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
-
-                String eventarget = this.Request.Params.GetValues("__EVENTTARGET")[0];
-
-                List<Libro> librosInformatica = controladorVistaInicio.BuscarLibrosCategoria("categoria", "Informatica");
-
-                switch (this.Request.Params.GetValues("__EVENTTARGET")[0])
+            {
+                if (this.Request.Params.GetValues("__EVENTTARGET")[0] == "ctl00$TreeViewCategorias")
                 {
-                    case "ctl00$TreeViewCategorias": //lo ha provocado un nodo del treeview, viendo el __EVENTARGUMENTS se si es una categoria o una subcategoria:
-                        string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
-                        List<Libro> LibrosCat = valueNodoTreeview.Contains("scategoria") ? controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[1]) :
-                                                controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[2]);
-                        cargarTabla(LibrosCat);
-                        break;
-                     default:
-                        if (this.Request.Params["__EVENTTARGET"].Contains("lnkbttitulo"))
-                        {
-                            string isbn_seleccionado = ((string)this.Request.Params["__EVENTTARGET"]).Split('$')[3].Replace("lnkbttitulo", "");
-                            Response.Redirect("VistaDetalleLibro.aspx?ISBNlibro=" + isbn_seleccionado);
-                        }
-                        break;
+                    string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
+                    List<Libro> LibrosCat = valueNodoTreeview.Contains("scategoria") ? controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[1]) :
+                                            controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[2]);
+                    cargarTabla(LibrosCat);
+
+                }
+
+
+                else if (this.Request.Params["__EVENTTARGET"].Contains("linkbttitulo"))
+                {
+                    string isbn_seleccionado = ((string)this.Request.Params["__EVENTTARGET"]).Split('$')[3].Replace("linkbttitulo", "");
+                    Response.Redirect("VistaDetalleLibro.aspx?ISBNlibro=" + isbn_seleccionado);
+                }
+                else if (this.Request.Params.Keys.Cast<String>().Contains("BtBuscador")) {
+                    string filtro = ((ListItem)((RadioButtonList)this.Master.FindControl("RadioBtBuscar")).Items.Cast<ListItem>().Select(elemento => { if (elemento.Selected) { return elemento; } else {  } })).ToString;
                    
                 }
 
-            };
+                /*
+                else if (buscador.Text != "")
+                {
+
+                    String filtro = (String)this.Request.QueryString["filtro"];
+                    String valor = (String)this.Request.QueryString["valor"];
+
+
+                    // ---- cargo lista de todos los libros disponibles ----------
+                    listaLibros = controladorVistaInicio.devuelveLibros();
+
+
+                    //--- lista que contendrá los libros filtrados --------
+                    List<Libro> listaLibrosFiltrado = new List<Libro>();
+
+                    switch (filtro)
+                    {
+                        case "Titulo":
+
+                            listaLibrosFiltrado = (from otrolibro in listaLibros
+                                                   let tituloFiltrado = otrolibro.titulo
+                                                   where tituloFiltrado.Contains(valor)
+                                                   select otrolibro).ToList();
+                            break;
+
+                        case "Autor":
+                            listaLibrosFiltrado = (from otrolibro in listaLibros
+                                                   let autorFiltrado = otrolibro.autor
+                                                   where autorFiltrado.Contains(valor)
+                                                   select otrolibro).ToList();
+                            break;
+
+                        case "ISBN":
+                            listaLibrosFiltrado = (from otrolibro in listaLibros
+                                                   let ISBNFiltrado = otrolibro.ISBN10
+                                                   where ISBNFiltrado.Contains(valor)
+                                                   select otrolibro).ToList();
+                            break;
+
+                        case "Editorial":
+                            listaLibrosFiltrado = (from otrolibro in listaLibros
+                                                   let EditorialFiltrado = otrolibro.editorial
+                                                   where EditorialFiltrado.Contains(valor)
+                                                   select otrolibro).ToList(); 
+                            break;
+                    }
+                    cargarTabla(listaLibrosFiltrado);
+                    buscador.Text = "";
+                }
+                */
+                   
+                }
+
+           
 
 
 
@@ -97,7 +144,6 @@ namespace LibreriaAgapeaNuevo
                         ((LinkButton)unlibro.FindControl("linkbttitulo")).ID += listaLibros[contador].ISBN10.ToString();
 
                         celda.Controls.Add(unlibro);
-
 
                         contador += 1;
                     }
@@ -146,7 +192,7 @@ namespace LibreriaAgapeaNuevo
 
 
 
-        protected void BtBuscador_Click(object sender, EventArgs e)
+        /*protected void BtBuscador_Click(object sender, EventArgs e)
         {
             if (RadioBtBuscar.SelectedItem != null)
             {
@@ -207,7 +253,7 @@ namespace LibreriaAgapeaNuevo
                         break;
                 }
             }
-        }
+        }*/
 
     }
 }

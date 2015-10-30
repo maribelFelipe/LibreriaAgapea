@@ -39,6 +39,12 @@ namespace LibreriaAgapeaNuevo.Maestras
 
         }
 
-        
+        protected void BtBuscador_Click(object sender, EventArgs e)
+        {
+            string filtro = RadioBtBuscar.SelectedValue; // valores: autor, titulo, editorial, isbn
+            string valor = TxtBxBuscador.Text;
+
+            this.Response.Redirect("inicio.aspx?filtro=" + filtro + "&valor=" + valor);
+        }
     }
 }

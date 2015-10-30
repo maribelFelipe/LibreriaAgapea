@@ -27,7 +27,7 @@
                 </td>
                 <td colspan="2">
 
-                    <asp:LinkButton ID="linkbttitulo" runat="server" OnClick="linkbttitulo_Click">Titulo</asp:LinkButton>
+                    <asp:LinkButton ID="linkbttitulo" runat="server" >Titulo</asp:LinkButton>
 
                 </td>
 

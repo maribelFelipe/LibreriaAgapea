@@ -34,9 +34,6 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
 
             switch (filtro)
             {
-
-
-
                 case "categoria":
 
                     //-----con LINQ con QUERY-----
@@ -50,9 +47,6 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
                     lineas = this.lectorFichero.ReadToEnd().Split(new char[] { '\n' }).Where(linea => linea.Split(new char[] { ':' })[numcampo] == filtro).ToArray();
                     return lineas;*/
                     break;
-
-
-
 
 
             }
