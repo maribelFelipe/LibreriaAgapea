@@ -109,7 +109,11 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
                 Filtro = delegate (string fila) { return fila.Split(new char[] { ':' })[7] == valor; };
             }
 
-            else {
+            else if (criterio == "subcategoria") {
+                Filtro = delegate (string fila) { return fila.Split(new char[] { ':' })[8] == valor; };
+            }
+            else
+            {
                 Filtro = delegate (string fila) { return fila.Split(new char[] { ':' })[8] == valor; };
             };
     

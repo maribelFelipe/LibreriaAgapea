@@ -55,11 +55,11 @@ namespace LibreriaAgapeaNuevo
 
             }
 
-           else
+            else
             {
-                Response.Redirect("Inicio.aspx");
-            }
 
+                
+            }
           
         }
         private void mostrar()

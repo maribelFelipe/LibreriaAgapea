@@ -54,7 +54,7 @@
 
     <div id="contenedor">
             <div id="usuario">
-                <asp:Label ID="LabelUsuarioRegistrado" runat="server" Text="Label"></asp:Label>
+                <asp:Label ID="LabelUsuarioRegistrado" runat="server" Text=""></asp:Label>
             </div>
             
             <div id="cabecera" >

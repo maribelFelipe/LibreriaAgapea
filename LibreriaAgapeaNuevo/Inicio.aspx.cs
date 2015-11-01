@@ -23,26 +23,42 @@ namespace LibreriaAgapeaNuevo
             recuperarSesion();
             mostrar();
             TextBox buscador = (TextBox)this.Master.FindControl("TxtBxBuscador");
-            
+
 
 
             if (!this.IsPostBack)
             {
                 listaLibros = controladorVistaInicio.devuelveLibros();
                 cargarTabla(listaLibros);
-                
+
             }
 
             else
-            {   
+            {
                 //Postback del TreeView
                 if (this.Request.Params.GetValues("__EVENTTARGET")[0] == "ctl00$TreeViewCategorias")
                 {
                     string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
-                    List<Libro> LibrosCat = valueNodoTreeview.Contains("scategoria") ? controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[1]) :
-                                            controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[2]);
-                    cargarTabla(LibrosCat);
+                    List<Libro> LibrosCat = new List<Libro>();
 
+                    if (valueNodoTreeview.Contains("scategoria"))
+                    {
+
+                        if ((valueNodoTreeview.Contains("subcategoria")))
+                        {
+                            LibrosCat = controladorVistaInicio.BuscarLibrosCategoria("subcategoria", (valueNodoTreeview.Split(new char[] { '\\' })[1]).Split(new char[] { ':' })[1]).ToList();
+
+                        }
+
+                        else
+                        {
+                            LibrosCat = controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[1]).ToList();
+
+                        }
+
+                        cargarTabla(LibrosCat);
+
+                    }
                 }
 
 
@@ -55,7 +71,8 @@ namespace LibreriaAgapeaNuevo
 
 
                 // Postback buscador
-                else if (this.Request.Params.Keys.Cast<String>().Contains("ctl00$RadioBtBuscar")) {
+                else if (this.Request.Params.Keys.Cast<String>().Contains("ctl00$RadioBtBuscar"))
+                {
                     string filtro = ((RadioButtonList)this.Master.FindControl("RadioBtBuscar")).SelectedItem.Text;
                     string valor = ((TextBox)this.Master.FindControl("TxtBxBuscador")).Text;
 
@@ -94,19 +111,19 @@ namespace LibreriaAgapeaNuevo
                             listaLibrosFiltrado = (from otrolibro in listaLibros
                                                    let EditorialFiltrado = otrolibro.editorial
                                                    where EditorialFiltrado.Contains(valor)
-                                                   select otrolibro).ToList(); 
+                                                   select otrolibro).ToList();
                             break;
                     }
                     cargarTabla(listaLibrosFiltrado);
                     buscador.Text = "";
                 }
-                
-                   
+
                 }
 
-           
 
 
+
+            
 
         }
 
