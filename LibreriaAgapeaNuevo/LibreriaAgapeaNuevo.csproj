@@ -68,12 +68,14 @@
   <ItemGroup>
     <Content Include="controlesUsuario\miniControlLibro.ascx" />
     <Content Include="controlesUsuario\miniControlLibroSeleccionado.ascx" />
+    <Content Include="controlesUsuario\miniControlListaCompra.ascx" />
     <Content Include="img\btIdentificar.PNG" />
     <Content Include="img\btRegistrar.PNG" />
     <Content Include="img\cabecera.PNG" />
     <Content Include="Inicio.aspx" />
     <Content Include="packages.config" />
     <Content Include="Maestras\MaestraGeneral.Master" />
+    <Content Include="Maestras\MaestraSencilla.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -86,6 +88,7 @@
     <Content Include="Ficheros\usuarios.txt" />
     <Content Include="img\cabecera01.png" />
     <Content Include="Registro.aspx" />
+    <Content Include="VistaCestaCompra.aspx" />
     <Content Include="VistaDetalleLibro.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -93,6 +96,7 @@
     <Compile Include="App_Code\Controladores\controlador_Acceso_Ficheros.cs" />
     <Compile Include="App_Code\Controladores\controlador_Vista_Inicio.cs" />
     <Compile Include="App_Code\Controladores\controlador_Vista_Registro.cs" />
+    <Content Include="App_Code\Modelos\Cesta.cs" />
     <Compile Include="controlesUsuario\miniControlLibro.ascx.cs">
       <DependentUpon>miniControlLibro.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -107,12 +111,26 @@
     <Compile Include="controlesUsuario\miniControlLibroSeleccionado.ascx.designer.cs">
       <DependentUpon>miniControlLibroSeleccionado.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controlesUsuario\miniControlListaCompra.ascx.cs">
+      <DependentUpon>miniControlListaCompra.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controlesUsuario\miniControlListaCompra.ascx.designer.cs">
+      <DependentUpon>miniControlListaCompra.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maestras\MaestraSencilla.Master.cs">
+      <DependentUpon>MaestraSencilla.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maestras\MaestraSencilla.Master.designer.cs">
+      <DependentUpon>MaestraSencilla.Master</DependentUpon>
     </Compile>
     <Compile Include="Registro.aspx.cs">
       <DependentUpon>Registro.aspx</DependentUpon>
@@ -131,6 +149,13 @@
       <DependentUpon>MaestraGeneral.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VistaCestaCompra.aspx.cs">
+      <DependentUpon>VistaCestaCompra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VistaCestaCompra.aspx.designer.cs">
+      <DependentUpon>VistaCestaCompra.aspx</DependentUpon>
+    </Compile>
     <Compile Include="VistaDetalleLibro.aspx.cs">
       <DependentUpon>VistaDetalleLibro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

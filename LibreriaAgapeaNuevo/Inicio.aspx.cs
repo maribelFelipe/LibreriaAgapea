@@ -35,7 +35,8 @@ namespace LibreriaAgapeaNuevo
 
             else
             {
-                //Postback del TreeView
+                #region ----- Postback del TreeView
+
                 if (this.Request.Params.GetValues("__EVENTTARGET")[0] == "ctl00$TreeViewCategorias")
                 {
                     string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
@@ -60,17 +61,28 @@ namespace LibreriaAgapeaNuevo
 
                     }
                 }
+                #endregion
 
 
-                //Postback de titulo de un libro
+                #region-------Postback de titulo de un libro
                 else if (this.Request.Params["__EVENTTARGET"].Contains("linkbttitulo"))
                 {
                     string isbn_seleccionado = ((string)this.Request.Params["__EVENTTARGET"]).Split('$')[3].Replace("linkbttitulo", "");
-                    Response.Redirect("VistaDetalleLibro.aspx?ISBNlibro=" + isbn_seleccionado);
+
+                    List<Libro> listaConLibroISBN = new List<Libro>();
+
+                    listaConLibroISBN = (from otrolibro in listaLibros
+                                         let isbnFiltrado = otrolibro.ISBN10
+                                         where isbnFiltrado.Contains(isbn_seleccionado)
+                                         select otrolibro).ToList();
+
+                    cargarTabla(listaConLibroISBN);
+
+                    //Response.Redirect("VistaDetalleLibro.aspx?ISBNlibro=" + isbn_seleccionado);
                 }
+                #endregion 
 
-
-                // Postback buscador
+                #region------- Postback buscador
                 else if (this.Request.Params.Keys.Cast<String>().Contains("ctl00$RadioBtBuscar"))
                 {
                     string filtro = ((RadioButtonList)this.Master.FindControl("RadioBtBuscar")).SelectedItem.Text;
@@ -117,13 +129,21 @@ namespace LibreriaAgapeaNuevo
                     cargarTabla(listaLibrosFiltrado);
                     buscador.Text = "";
                 }
+                #endregion
+
+                #region ------- Postback boton comprar //ctl00$ContentPlaceHolder1$ctl00$btcomprar1111111111
+                else if (this.Request.Params.Keys.Cast<String>().Contains("btcomprar")){
+
 
                 }
 
+               #endregion
 
 
 
-            
+
+            }
+
 
         }
 
@@ -155,6 +175,7 @@ namespace LibreriaAgapeaNuevo
                         unlibro.PrecioControl = listaLibros[contador].precio.ToString();
 
                         ((LinkButton)unlibro.FindControl("linkbttitulo")).ID += listaLibros[contador].ISBN10.ToString();
+                        ((Button)unlibro.FindControl("btcomprar")).ID += listaLibros[contador].ISBN10.ToString(); //ctl00$ContentPlaceHolder1$ctl00$btcomprar1111111111
 
                         celda.Controls.Add(unlibro);
 
