@@ -8,6 +8,7 @@ using LibreriaAgapeaNuevo.App_Code.Modelos;
 using LibreriaAgapeaNuevo.App_Code.Controladores;
 using LibreriaAgapeaNuevo.controlesUsuario;
 
+
 namespace LibreriaAgapeaNuevo
 {
     public partial class Inicio : System.Web.UI.Page
@@ -70,10 +71,11 @@ namespace LibreriaAgapeaNuevo
                     string isbn_seleccionado = ((string)this.Request.Params["__EVENTTARGET"]).Split('$')[3].Replace("linkbttitulo", "");
 
                     List<Libro> listaConLibroISBN = new List<Libro>();
+                    listaLibros = controladorVistaInicio.devuelveLibros();
 
                     listaConLibroISBN = (from otrolibro in listaLibros
                                          let isbnFiltrado = otrolibro.ISBN10
-                                         where isbnFiltrado.Contains(isbn_seleccionado)
+                                         where isbnFiltrado.Equals(isbn_seleccionado)
                                          select otrolibro).ToList();
 
                     cargarTabla(listaConLibroISBN);
@@ -134,6 +136,23 @@ namespace LibreriaAgapeaNuevo
                 #region ------- Postback boton comprar //ctl00$ContentPlaceHolder1$ctl00$btcomprar1111111111
                 else if (this.Request.Params.Keys.Cast<String>().Contains("btcomprar")){
 
+                    string clave = this.Request.Params.Keys.Cast<String>().Contains("btcomprar").ToString();
+                    string isbn_seleccionado = clave.Split('$')[3].Replace("btcomprar", "");
+
+                    try
+                    {
+                        HttpCookie cookieAlmacenada = this.Request.Cookies["cesta"];
+
+                    } catch
+                    {
+                        HttpCookie cookieCesta = new HttpCookie("cesta");
+
+                        cookieCesta.Values["usuario"] = (String)this.Request.QueryString["usuario"];
+                        cookieCesta.Values["isbn"] += "-" + isbn_seleccionado;
+                        cookieCesta.Values["lastVisit"] = DateTime.Now.ToString();
+                        cookieCesta.Expires = DateTime.Now.AddDays(1);
+                        Response.Cookies.Add(cookieCesta);
+                    }
 
                 }
 
@@ -151,6 +170,29 @@ namespace LibreriaAgapeaNuevo
 
         private void cargarTabla(List<Libro> listaLibros)
         {
+            if (listaLibros.Count == 1)
+            {
+                miniControlLibroSeleccionado unlibro = (miniControlLibroSeleccionado)this.LoadControl("~/controlesUsuario/miniControlLibroSeleccionado.ascx");
+
+                miTablaInicio.Rows.Add(new TableRow());
+                TableCell celda = new TableCell();
+
+                miTablaInicio.Rows[0].Cells.Add(celda);
+
+                unlibro.TituloControl = listaLibros[0].titulo;
+                unlibro.EditorialControl = listaLibros[0].editorial;
+                unlibro.AutorControl = listaLibros[0].autor;
+                unlibro.PrecioControl = listaLibros[0].precio.ToString();
+                unlibro.ISBN10Control = listaLibros[0].ISBN10;
+                unlibro.ISBN13Control = listaLibros[0].ISBN13;
+                unlibro.NumPaginasControl = listaLibros[0].numPaginas.ToString();
+                unlibro.ResumenControl = listaLibros[0].resumen;
+
+                celda.Controls.Add(unlibro);
+            }
+
+
+            else { 
             int contador = 0;
 
             for (int i = 0; i < 6; i++)
@@ -185,7 +227,7 @@ namespace LibreriaAgapeaNuevo
                     
                 }
 
-
+                }
             }
         }
 
@@ -221,73 +263,6 @@ namespace LibreriaAgapeaNuevo
 
             TxtBoxVariables.Text = mensaje;
         }
-
-
-
-
-
-        /*protected void BtBuscador_Click(object sender, EventArgs e)
-        {
-            if (RadioBtBuscar.SelectedItem != null)
-            {
-                // --- Cogemos nombre del radiobutton y valor introducido en el en textoboxbuscar ------
-                string filtro = RadioBtBuscar.SelectedValue; // valores: autor, titulo, editorial, isbn
-                string valor = TxtBxBuscador.Text; // valor introducido por el usuario
-
-
-                // ---- cargo lista de todos los libros disponibles ----------
-                listaLibros = controladorVistaInicio.devuelveLibros();
-
-
-                //--- lista que contendrá los libros filtrados --------
-                List<Libro> listaLibrosFiltrado = new List<Libro>();
-
-                switch (filtro)
-                {
-                    case "Titulo":
-
-                        listaLibrosFiltrado = (from otrolibro in listaLibros
-                                               let tituloFiltrado = otrolibro.titulo
-                                               where tituloFiltrado.Contains(valor)
-                                               select otrolibro).ToList();
-
-                        cargarTabla(listaLibrosFiltrado);
-                        TxtBxBuscador.Text = "";
-                                             
-                    break;
-
-                    case "Autor":
-                        listaLibrosFiltrado = (from otrolibro in listaLibros
-                                               let autorFiltrado = otrolibro.autor
-                                               where autorFiltrado.Contains(valor)
-                                               select otrolibro).ToList();
-
-                        cargarTabla(listaLibrosFiltrado);
-                        TxtBxBuscador.Text = "";
-                        break;
-
-                    case "ISBN":
-                        listaLibrosFiltrado = (from otrolibro in listaLibros
-                                               let ISBNFiltrado = otrolibro.ISBN10
-                                               where ISBNFiltrado.Contains(valor)
-                                               select otrolibro).ToList();
-
-                        cargarTabla(listaLibrosFiltrado);
-                        TxtBxBuscador.Text = "";
-                        break;
-
-                    case "Editorial":
-                        listaLibrosFiltrado = (from otrolibro in listaLibros
-                                               let EditorialFiltrado = otrolibro.editorial
-                                               where EditorialFiltrado.Contains(valor)
-                                               select otrolibro).ToList();
-
-                        cargarTabla(listaLibrosFiltrado);
-                        TxtBxBuscador.Text = "";
-                        break;
-                }
-            }
-        }*/
 
     }
 }
