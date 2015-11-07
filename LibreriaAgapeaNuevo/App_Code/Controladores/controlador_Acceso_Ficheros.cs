@@ -25,37 +25,6 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
         }
 
 
-        public string[] LeerDatos(String fichero, string filtro, int numcampo)
-        {
-
-            this.lectorFichero = new StreamReader(HttpContext.Current.Request.MapPath(fichero));
-
-            string[] lineas = new string[] { };
-
-            switch (filtro)
-            {
-                case "categoria":
-
-                    //-----con LINQ con QUERY-----
-
-                    lineas = (from unalinea in this.lectorFichero.ReadToEnd().Split(new char[] { '\n' })
-                              let categoriaLinea = unalinea.Split(new char[] { ':' })[numcampo]
-                              where categoriaLinea == filtro
-                              select unalinea).ToArray();
-
-                    /*-------con LINQ extendido, filtro lineas por una categoria----
-                    lineas = this.lectorFichero.ReadToEnd().Split(new char[] { '\n' }).Where(linea => linea.Split(new char[] { ':' })[numcampo] == filtro).ToArray();
-                    return lineas;*/
-                    break;
-
-
-            }
-            return lineas;
-
-        }
-
-
-
         public List<String> leeDatosFichero(String fichero)
         {
             this.lectorFichero = new StreamReader(HttpContext.Current.Request.MapPath(fichero));
@@ -112,6 +81,24 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
 
             return resultadoBusqueda;
 
+        }
+
+        public List<String> buscarDatoEnFichero(String fichero, List<String> listado, int campo)
+        {
+            this.lectorFichero = new StreamReader(HttpContext.Current.Request.MapPath(fichero));
+
+            List<String> resultadoBusqueda = new List<String>();
+
+            foreach ( String linea in listado )
+            {
+                String encontrado = (from unalinea in lectorFichero.ReadToEnd().Split(new char[] { '\r', '\n' }).Where(unalinea => unalinea.Length != 0)
+                                     let isbn = unalinea.Split(new char[] { ':' })[campo]
+                                     where isbn == linea
+                                     select unalinea).SingleOrDefault();
+                resultadoBusqueda.Add(encontrado);
+            }
+
+            return resultadoBusqueda;
         }
 
     }

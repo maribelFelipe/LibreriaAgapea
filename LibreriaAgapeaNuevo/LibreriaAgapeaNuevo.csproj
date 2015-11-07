@@ -69,6 +69,7 @@
     <Content Include="controlesUsuario\miniControlLibro.ascx" />
     <Content Include="controlesUsuario\miniControlLibroSeleccionado.ascx" />
     <Content Include="controlesUsuario\miniControlListaCompra.ascx" />
+    <Content Include="Ficheros\cestas.txt" />
     <Content Include="img\btIdentificar.PNG" />
     <Content Include="img\btRegistrar.PNG" />
     <Content Include="img\cabecera.PNG" />
@@ -93,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\Controladores\controlador_Acceso_Ficheros.cs" />
+    <Compile Include="App_Code\Controladores\controlador_Vista_Cesta.cs" />
     <Compile Include="App_Code\Controladores\controlador_Vista_Inicio.cs" />
     <Compile Include="App_Code\Controladores\controlador_Vista_Registro.cs" />
     <Content Include="App_Code\Modelos\Cesta.cs" />

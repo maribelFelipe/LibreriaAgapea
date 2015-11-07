@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using LibreriaAgapeaNuevo.App_Code.Modelos;
 using LibreriaAgapeaNuevo.App_Code.Controladores;
 using LibreriaAgapeaNuevo.controlesUsuario;
+using System.Text.RegularExpressions;
 
 
 namespace LibreriaAgapeaNuevo
@@ -36,134 +37,158 @@ namespace LibreriaAgapeaNuevo
 
             else
             {
-                #region ----- Postback del TreeView
+               
+                    #region ----- Postback del TreeView
 
-                if (this.Request.Params.GetValues("__EVENTTARGET")[0] == "ctl00$TreeViewCategorias")
-                {
-                    string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
-                    List<Libro> LibrosCat = new List<Libro>();
-
-                    if (valueNodoTreeview.Contains("scategoria"))
+                    if (this.Request.Params.GetValues("__EVENTTARGET")[0] == "ctl00$TreeViewCategorias")
                     {
+                        string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
+                        List<Libro> LibrosCat = new List<Libro>();
 
-                        if ((valueNodoTreeview.Contains("subcategoria")))
+                        if (valueNodoTreeview.Contains("scategoria"))
                         {
-                            LibrosCat = controladorVistaInicio.BuscarLibrosCategoria("subcategoria", (valueNodoTreeview.Split(new char[] { '\\' })[1]).Split(new char[] { ':' })[1]).ToList();
+
+                            if ((valueNodoTreeview.Contains("subcategoria")))
+                            {
+                                LibrosCat = controladorVistaInicio.BuscarLibrosCategoria("subcategoria", (valueNodoTreeview.Split(new char[] { '\\' })[1]).Split(new char[] { ':' })[1]).ToList();
+
+                            }
+
+                            else
+                            {
+                                LibrosCat = controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[1]).ToList();
+
+                            }
+
+                            cargarTabla(LibrosCat);
 
                         }
+                    }
+                    #endregion
 
-                        else
+
+
+
+                    #region-------Postback de titulo de un libro
+                    else if (this.Request.Params["__EVENTTARGET"].Contains("linkbttitulo"))
+                    {
+                        string isbn_seleccionado = ((string)this.Request.Params["__EVENTTARGET"]).Split('$')[3].Replace("linkbttitulo", "");
+
+                        List<Libro> listaConLibroISBN = new List<Libro>();
+                        listaLibros = controladorVistaInicio.devuelveLibros();
+
+                        listaConLibroISBN = (from otrolibro in listaLibros
+                                             let isbnFiltrado = otrolibro.ISBN10
+                                             where isbnFiltrado.Equals(isbn_seleccionado)
+                                             select otrolibro).ToList();
+
+                        cargarTabla(listaConLibroISBN);
+
+         
+                    }
+                    #endregion
+
+                    #region------- Postback buscador
+                    else if (this.Request.Params.Keys.Cast<String>().Contains("ctl00$RadioBtBuscar"))
+                    {
+                        string filtro = ((RadioButtonList)this.Master.FindControl("RadioBtBuscar")).SelectedItem.Text;
+                        string valor = ((TextBox)this.Master.FindControl("TxtBxBuscador")).Text;
+
+                        // ---- cargo lista de todos los libros disponibles ----------
+                        listaLibros = controladorVistaInicio.devuelveLibros();
+
+
+                        //--- lista que contendrá los libros filtrados --------
+                        List<Libro> listaLibrosFiltrado = new List<Libro>();
+
+                        switch (filtro)
                         {
-                            LibrosCat = controladorVistaInicio.BuscarLibrosCategoria("categoria", valueNodoTreeview.Split(new char[] { ':' })[1]).ToList();
+                            case "Titulo":
 
+                                listaLibrosFiltrado = (from otrolibro in listaLibros
+                                                       let tituloFiltrado = otrolibro.titulo
+                                                       where tituloFiltrado.Contains(valor)
+                                                       select otrolibro).ToList();
+                                break;
+
+                            case "Autor":
+                                listaLibrosFiltrado = (from otrolibro in listaLibros
+                                                       let autorFiltrado = otrolibro.autor
+                                                       where autorFiltrado.Contains(valor)
+                                                       select otrolibro).ToList();
+                                break;
+
+                            case "ISBN":
+                                listaLibrosFiltrado = (from otrolibro in listaLibros
+                                                       let ISBNFiltrado = otrolibro.ISBN10
+                                                       where ISBNFiltrado.Contains(valor)
+                                                       select otrolibro).ToList();
+                                break;
+
+                            case "Editorial":
+                                listaLibrosFiltrado = (from otrolibro in listaLibros
+                                                       let EditorialFiltrado = otrolibro.editorial
+                                                       where EditorialFiltrado.Contains(valor)
+                                                       select otrolibro).ToList();
+                                break;
                         }
-
-                        cargarTabla(LibrosCat);
-
+                        cargarTabla(listaLibrosFiltrado);
+                        buscador.Text = "";
                     }
-                }
-                #endregion
+                    #endregion
+
+                    #region ------- Postback boton comprar //ctl00$ContentPlaceHolder1$ctl00$btcomprar1111111111
 
 
-                #region-------Postback de titulo de un libro
-                else if (this.Request.Params["__EVENTTARGET"].Contains("linkbttitulo"))
-                {
-                    string isbn_seleccionado = ((string)this.Request.Params["__EVENTTARGET"]).Split('$')[3].Replace("linkbttitulo", "");
-
-                    List<Libro> listaConLibroISBN = new List<Libro>();
-                    listaLibros = controladorVistaInicio.devuelveLibros();
-
-                    listaConLibroISBN = (from otrolibro in listaLibros
-                                         let isbnFiltrado = otrolibro.ISBN10
-                                         where isbnFiltrado.Equals(isbn_seleccionado)
-                                         select otrolibro).ToList();
-
-                    cargarTabla(listaConLibroISBN);
-
-                    //Response.Redirect("VistaDetalleLibro.aspx?ISBNlibro=" + isbn_seleccionado);
-                }
-                #endregion 
-
-                #region------- Postback buscador
-                else if (this.Request.Params.Keys.Cast<String>().Contains("ctl00$RadioBtBuscar"))
-                {
-                    string filtro = ((RadioButtonList)this.Master.FindControl("RadioBtBuscar")).SelectedItem.Text;
-                    string valor = ((TextBox)this.Master.FindControl("TxtBxBuscador")).Text;
-
-                    // ---- cargo lista de todos los libros disponibles ----------
-                    listaLibros = controladorVistaInicio.devuelveLibros();
-
-
-                    //--- lista que contendrá los libros filtrados --------
-                    List<Libro> listaLibrosFiltrado = new List<Libro>();
-
-                    switch (filtro)
+                    else
                     {
-                        case "Titulo":
 
-                            listaLibrosFiltrado = (from otrolibro in listaLibros
-                                                   let tituloFiltrado = otrolibro.titulo
-                                                   where tituloFiltrado.Contains(valor)
-                                                   select otrolibro).ToList();
-                            break;
-
-                        case "Autor":
-                            listaLibrosFiltrado = (from otrolibro in listaLibros
-                                                   let autorFiltrado = otrolibro.autor
-                                                   where autorFiltrado.Contains(valor)
-                                                   select otrolibro).ToList();
-                            break;
-
-                        case "ISBN":
-                            listaLibrosFiltrado = (from otrolibro in listaLibros
-                                                   let ISBNFiltrado = otrolibro.ISBN10
-                                                   where ISBNFiltrado.Contains(valor)
-                                                   select otrolibro).ToList();
-                            break;
-
-                        case "Editorial":
-                            listaLibrosFiltrado = (from otrolibro in listaLibros
-                                                   let EditorialFiltrado = otrolibro.editorial
-                                                   where EditorialFiltrado.Contains(valor)
-                                                   select otrolibro).ToList();
-                            break;
-                    }
-                    cargarTabla(listaLibrosFiltrado);
-                    buscador.Text = "";
-                }
-                #endregion
-
-                #region ------- Postback boton comprar //ctl00$ContentPlaceHolder1$ctl00$btcomprar1111111111
-                else if (this.Request.Params.Keys.Cast<String>().Contains("btcomprar")){
-
-                    string clave = this.Request.Params.Keys.Cast<String>().Contains("btcomprar").ToString();
-                    string isbn_seleccionado = clave.Split('$')[3].Replace("btcomprar", "");
-
-                    try
+                    foreach (String clave in this.Request.Params)
                     {
-                        HttpCookie cookieAlmacenada = this.Request.Cookies["cesta"];
+                        if (clave.Contains("btcomprar"))
+                        {
+                            string isbn_seleccionado = clave.Split('$')[3].Replace("btcomprar", "");  //this.Request.Params.Keys.Cast<String>().Contains("btcomprar").ToString();
 
-                    } catch
-                    {
-                        HttpCookie cookieCesta = new HttpCookie("cesta");
+                            HttpCookie cookieCesta;
+                            try
+                            {
+                                cookieCesta = this.Request.Cookies["cesta"];
+                                cookieCesta.Values["isbn"] += "-" + isbn_seleccionado;
+                            }
+                            catch
+                            {
+                                cookieCesta = new HttpCookie("cesta");
 
-                        cookieCesta.Values["usuario"] = (String)this.Request.QueryString["usuario"];
-                        cookieCesta.Values["isbn"] += "-" + isbn_seleccionado;
-                        cookieCesta.Values["lastVisit"] = DateTime.Now.ToString();
-                        cookieCesta.Expires = DateTime.Now.AddDays(1);
-                        Response.Cookies.Add(cookieCesta);
+                                if (this.Request.QueryString["usuario"] != null)
+                                {
+                                    cookieCesta.Values["usuario"] = (String)this.Request.QueryString["usuario"];
+                                    cookieCesta.Values["isbn"] = isbn_seleccionado;
+                                }
+
+                                else
+                                {
+                                    cookieCesta.Values["usuario"] = "Anonimo";
+                                    cookieCesta.Values["isbn"] = isbn_seleccionado;
+                                }
+
+                                cookieCesta.Values["lastVisit"] = DateTime.Now.ToString();
+                                cookieCesta.Expires = DateTime.Now.AddDays(1);
+                                Response.Cookies.Add(cookieCesta);
+                            }
+
+                            this.Response.Cookies.Add(cookieCesta);
+                            this.Response.Redirect("VistaCestaCompra.aspx");
+                        }
                     }
 
+                    #endregion
+
+
+
+
                 }
-
-               #endregion
-
-
-
 
             }
-
-
         }
 
 
