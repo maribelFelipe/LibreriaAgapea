@@ -17,15 +17,31 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
         public List<Libro> buscarLibrosISBN(List<String> listaIsbns)
         {
 
-            List<String> listado = new List<String>();
-            listado = ficheros.buscarDatoEnFichero(ficheroLibros, listaIsbns, 4);
+            List<String> listado = ficheros.leeDatosFichero(ficheroLibros);
+            List<String> listadoFiltrado = new List<String>();
+
+            foreach (String linea in listaIsbns)
+            {
+                if (linea != null)
+                {
+                    String encontrado = (from unalinea in listado
+                                         let isbn = unalinea.Split(new char[] { ':' })[4]
+                                         where isbn == linea
+                                         select unalinea).SingleOrDefault();
+
+                    listadoFiltrado.Add(encontrado);
+                }
+
+            }
+
+        
 
             List<Libro> listaLibros = new List<Libro>();
 
-            for (int i = 0; i < listado.Count; i++)
+            for (int i = 0; i < listadoFiltrado.Count; i++)
             {
-                char[] separator = { ':' };
-                String[] campos = listado[i].Split(separator);
+                
+                String[] campos = listadoFiltrado[i].Split(new char[] { ':' });
 
                 Libro libro = new Libro();
 

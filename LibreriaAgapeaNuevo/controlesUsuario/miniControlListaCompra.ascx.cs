@@ -12,7 +12,6 @@ namespace LibreriaAgapeaNuevo.controlesUsuario
 
         private string titulo;
         private string autor;
-        private string editorial;
         private string precio;
         private int unidades;
 
@@ -37,15 +36,7 @@ namespace LibreriaAgapeaNuevo.controlesUsuario
             }
         }
 
-        public string EditorialControl
-        {
-            get { return this.editorial; }
-            set
-            {
-                this.editorial = value;
-                this.LblEditorial.Text = this.editorial;
-            }
-        }
+ 
 
         public string PrecioControl
         {
@@ -60,12 +51,16 @@ namespace LibreriaAgapeaNuevo.controlesUsuario
         public int UnidadesControl
         {
             get { return this.unidades; }
+
             set
             {
                 this.unidades = value;
                 this.LblUnidades.Text = this.unidades.ToString();
             }
         }
+
+
+
 
 
         protected void Page_Load(object sender, EventArgs e)

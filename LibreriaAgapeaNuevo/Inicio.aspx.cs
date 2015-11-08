@@ -137,7 +137,7 @@ namespace LibreriaAgapeaNuevo
                     }
                     #endregion
 
-                    #region ------- Postback boton comprar //ctl00$ContentPlaceHolder1$ctl00$btcomprar1111111111
+                    #region ------- Postback boton comprar 
 
 
                     else
@@ -147,7 +147,7 @@ namespace LibreriaAgapeaNuevo
                     {
                         if (clave.Contains("btcomprar"))
                         {
-                            string isbn_seleccionado = clave.Split('$')[3].Replace("btcomprar", "");  //this.Request.Params.Keys.Cast<String>().Contains("btcomprar").ToString();
+                            string isbn_seleccionado = clave.Split('$')[3].Replace("btcomprar", "");  
 
                             HttpCookie cookieCesta;
                             try
@@ -171,10 +171,12 @@ namespace LibreriaAgapeaNuevo
                                     cookieCesta.Values["isbn"] = isbn_seleccionado;
                                 }
 
-                                cookieCesta.Values["lastVisit"] = DateTime.Now.ToString();
-                                cookieCesta.Expires = DateTime.Now.AddDays(1);
-                                Response.Cookies.Add(cookieCesta);
+                               
                             }
+
+                            cookieCesta.Values["lastVisit"] = DateTime.Now.ToString();
+                            cookieCesta.Expires = DateTime.Now.AddDays(1);
+                            Response.Cookies.Add(cookieCesta);
 
                             this.Response.Cookies.Add(cookieCesta);
                             this.Response.Redirect("VistaCestaCompra.aspx");

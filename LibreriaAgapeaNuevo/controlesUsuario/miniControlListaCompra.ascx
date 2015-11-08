@@ -1,83 +1,72 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="miniControlListaCompra.ascx.cs" Inherits="LibreriaAgapeaNuevo.controlesUsuario.miniControlListaCompra" %>
-<style type="text/css">
+<html>
+    <head>
+        <style type="text/css">
     #tablaLibroCompra {
-        position:absolute;
-            width:880px;
-            height:80px;
-            margin-left:10px;
-            margin-top:40px;
+
+            width:680px;
+            height:20px;
+            margin-bottom:10px;
     }
-    .auto-style3 {
-        width: 65px;
-        background-color:aqua;
+    .tituloTabla {
+        height:20px;
+        background-color:darkgray;
+        color:white;
     }
-    .auto-style4 {
-        width: 202px;
-        height: 10px;
-    }
-    .auto-style5 {
-        height: 10px;
-    }
-    .auto-style6 {
-        width: 37px;
-    }
-    .auto-style7 {
-        width: 268435264px;
-    }
-    .auto-style8 {
-        margin-left: 0px;
-    }
-    </style>
-<table id="tablaLibroCompra">
-    <tr>
-        <td rowspan="2" class="auto-style3">
-            <asp:Image ID="Image1" runat="server" Height="68px" Width="58px" />
-        </td>
-        <td class="auto-style4">
+
+         
+          
+
+            .auto-style1 {
+                width: 349px;
+            }
+            .auto-style2 {
+                width: 144px;
+            }
+
+         
+          
+
+            </style>
+    </head>
+    <body>
+        <table id="tablaLibroCompra">
+
+    
+     <tr>
+        <td class="auto-style1">
             <asp:LinkButton ID="LinkBtTitulo" runat="server" Text="Titulo"></asp:LinkButton>
-        </td>
-
-        <td class="auto-style5" colspan="7">
-            <asp:Label ID="LblAutor" runat="server" Text="Autor"></asp:Label>
-        </td>
-
-        <td class="auto-style5" colspan="2">
-            <asp:Label ID="LblEditorial" runat="server" Text="Editorial"></asp:Label>
         </td>
 
     </tr>
     <tr>
-        <td colspan="2">
-            <asp:Label ID="LblPrecio" runat="server" Text="Precio"></asp:Label>
+                <td class="auto-style1">
+            <asp:Label ID="LblAutor" runat="server" Text="Autor"></asp:Label>
         </td>
 
-        <td class="auto-style6">
-            <asp:Button ID="ButtonAddUnit" runat="server" Text="+" />
-        </td>
-
-        <td>
+        
+        <td class="auto-style2" style="align-items:center">
+             <asp:Button ID="ButtonAddUnit" runat="server" Text="+" BackColor="#999966" />
             <asp:Label ID="LblUnidades" runat="server" Text="Unidades"></asp:Label>
-            <asp:Button ID="ButtonDelUnit" runat="server" Text="-" CssClass="auto-style8" Width="16px" />
+            <asp:Button ID="ButtonDelUnit" runat="server" Text="-" CssClass="auto-style8" Width="22px" BackColor="#999966"  />
+
         </td>
 
+        <td >
+             <asp:Label ID="LblPrecio" runat="server" Text="Precio" Style="align-content:center"></asp:Label>
+            </td>
         <td>
-            &nbsp;</td>
-
-        <td>
-            &nbsp;</td>
-
-        <td>
-            &nbsp;</td>
-
-        <td>
-            &nbsp;</td>
-
-        <td class="auto-style7">
-            &nbsp;</td>
-
-        <td>
-            &nbsp;</td>
+            <asp:Button ID="btBorrar" runat="server" Text="X" BackColor="#FF9933" ForeColor="Maroon" />
+        </td>
+       
+        
 
     </tr>
 
 </table>
+
+    </body>
+</html>
+
+
+    

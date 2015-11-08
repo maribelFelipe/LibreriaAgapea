@@ -13,15 +13,6 @@ namespace LibreriaAgapeaNuevo.controlesUsuario {
     public partial class miniControlListaCompra {
         
         /// <summary>
-        /// Image1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image1;
-        
-        /// <summary>
         /// LinkBtTitulo control.
         /// </summary>
         /// <remarks>
@@ -38,24 +29,6 @@ namespace LibreriaAgapeaNuevo.controlesUsuario {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblAutor;
-        
-        /// <summary>
-        /// LblEditorial control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblEditorial;
-        
-        /// <summary>
-        /// LblPrecio control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblPrecio;
         
         /// <summary>
         /// ButtonAddUnit control.
@@ -83,5 +56,23 @@ namespace LibreriaAgapeaNuevo.controlesUsuario {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonDelUnit;
+        
+        /// <summary>
+        /// LblPrecio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblPrecio;
+        
+        /// <summary>
+        /// btBorrar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btBorrar;
     }
 }

@@ -70,13 +70,14 @@
     <Content Include="controlesUsuario\miniControlLibroSeleccionado.ascx" />
     <Content Include="controlesUsuario\miniControlListaCompra.ascx" />
     <Content Include="Ficheros\cestas.txt" />
+    <Content Include="img\BtFinCompra.JPG" />
     <Content Include="img\btIdentificar.PNG" />
     <Content Include="img\btRegistrar.PNG" />
+    <Content Include="img\BtSeguirCompra.JPG" />
     <Content Include="img\cabecera.PNG" />
     <Content Include="Inicio.aspx" />
     <Content Include="packages.config" />
     <Content Include="Maestras\MaestraGeneral.Master" />
-    <Content Include="Maestras\MaestraSencilla.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -125,13 +126,6 @@
     </Compile>
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Maestras\MaestraSencilla.Master.cs">
-      <DependentUpon>MaestraSencilla.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Maestras\MaestraSencilla.Master.designer.cs">
-      <DependentUpon>MaestraSencilla.Master</DependentUpon>
     </Compile>
     <Compile Include="Registro.aspx.cs">
       <DependentUpon>Registro.aspx</DependentUpon>

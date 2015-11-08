@@ -18,22 +18,20 @@ namespace LibreriaAgapeaNuevo
         {
             recuperarSesion();
             mostrar();
-
-            try
+         
+            if (!this.IsPostBack)
             {
                 HttpCookie cookieCesta = this.Request.Cookies["cesta"];
-
-                String isbnLibrosCesta = cookieCesta.Values.ToString().Split('&')[1].Replace("isbn=","");
+                String isbnLibrosCesta = cookieCesta.Values.ToString().Split('&')[1].Replace("isbn=", "");
                 List<String> isbnsFiltrados = isbnLibrosCesta.Split(new char[] { '-' }).ToList();
 
                 List<Libro> listaLibrosCesta = controladorVistaCesta.buscarLibrosISBN(isbnsFiltrados);
 
                 cargarCesta(listaLibrosCesta);
             }
-            catch
-            {
-                this.Response.Redirect("Inicio.aspx");
-            }
+            
+
+            
 
         }
 
@@ -52,36 +50,33 @@ namespace LibreriaAgapeaNuevo
                 TableListaCesta.Rows[i].Cells.Add(celda);
                 unlibro.TituloControl = listaLibrosCesta[i].titulo;
                 unlibro.AutorControl = listaLibrosCesta[i].autor;
-                unlibro.EditorialControl = listaLibrosCesta[i].editorial;
                 unlibro.PrecioControl = listaLibrosCesta[i].precio.ToString();
+                unlibro.UnidadesControl.ToString();
                
 
                 //((LinkButton)unlibro.FindControl("linkbttitulo")).ID += libro.ISBN10.ToString();
 
                 celda.Controls.Add(unlibro);
 
-                
             }
-
-           
-
         }
+
+
 
 
         protected void recuperarSesion()
         {
 
-            Label usuarioRegistrado = (Label)this.Master.FindControl("LabelUsuarioRegistrado");
 
             String usuario = (String)this.Request.QueryString["usuario"];
             if (usuario != null)
             {
-                usuarioRegistrado.Text = "Usuario: " + usuario;
+                LabelUsuarioRegistrado.Text = "Usuario: " + usuario;
 
             }
             else
             {
-                usuarioRegistrado.Text = "";
+                LabelUsuarioRegistrado.Text = "";
             }
 
         }
@@ -91,7 +86,6 @@ namespace LibreriaAgapeaNuevo
         {
             String mensaje = "";
 
-            TextBox TxtBoxVariables = (TextBox)this.Master.FindControl("TxtBoxVariables");
 
             foreach (String clave in this.Request.Params.Keys)
             {
@@ -99,6 +93,16 @@ namespace LibreriaAgapeaNuevo
             }
 
             TxtBoxVariables.Text = mensaje;
+        }
+
+        protected void BtFinCompra_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void BtSeguirComprando_Click(object sender, ImageClickEventArgs e)
+        {
+           
         }
     }
 }
