@@ -9,5 +9,8 @@ namespace LibreriaAgapeaNuevo.App_Code.Modelos
     {
         private List<Libro> cesta { get; set; }
         private Usuario usuario { get; set;  }
+        private DateTime fecha { get; set;  }
+
+
     }
 }

@@ -55,7 +55,7 @@ namespace LibreriaAgapeaNuevo.controlesUsuario
             set
             {
                 this.unidades = value;
-                this.LblUnidades.Text = this.unidades.ToString();
+                this.LblUnidades.Text = "";
             }
         }
 

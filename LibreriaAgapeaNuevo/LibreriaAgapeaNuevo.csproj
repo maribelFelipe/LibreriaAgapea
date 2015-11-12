@@ -48,6 +48,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Spire.License, Version=1.3.5.40, Culture=neutral, PublicKeyToken=b1144360237c8b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.PDF.3.5.143\lib\net40\Spire.License.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spire.Pdf, Version=3.5.143.5040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.PDF.3.5.143\lib\net40\Spire.Pdf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -95,10 +103,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\Controladores\controlador_Acceso_Ficheros.cs" />
+    <Compile Include="App_Code\Controladores\controlador_Email.cs" />
+    <Compile Include="App_Code\Controladores\controlador_generar_PDF.cs" />
     <Compile Include="App_Code\Controladores\controlador_Vista_Cesta.cs" />
     <Compile Include="App_Code\Controladores\controlador_Vista_Inicio.cs" />
     <Compile Include="App_Code\Controladores\controlador_Vista_Registro.cs" />
-    <Content Include="App_Code\Modelos\Cesta.cs" />
+    <Compile Include="App_Code\Modelos\Cesta.cs" />
+    <Compile Include="App_Code\Modelos\LibroCesta.cs" />
     <Compile Include="controlesUsuario\miniControlLibro.ascx.cs">
       <DependentUpon>miniControlLibro.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

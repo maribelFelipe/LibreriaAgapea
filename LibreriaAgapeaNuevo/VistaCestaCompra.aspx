@@ -43,16 +43,8 @@
             height:10px;
             margin-bottom:10px;
     }
-          #tabla {
-            position:absolute;
-            margin-top:30px;
-            margin-left:80px;
-            width:700px;
-            height:430px;
-            -webkit-box-shadow: 0px 5px 23px -8px rgba(0,0,0,0.59);
-            -moz-box-shadow: 0px 5px 23px -8px rgba(0,0,0,0.59);
-            box-shadow: 0px 5px 23px -8px rgba(0,0,0,0.59);
-        }
+        
+        
     .tituloTabla {
         
         background-color:darkgray;

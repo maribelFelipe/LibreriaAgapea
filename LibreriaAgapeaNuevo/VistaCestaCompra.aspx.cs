@@ -13,29 +13,92 @@ namespace LibreriaAgapeaNuevo
     public partial class VistaCestaCompra : System.Web.UI.Page
     {
         private controlador_Vista_Cesta controladorVistaCesta = new controlador_Vista_Cesta();
+        private List<LibroCesta> listaLibrosCesta = new List<LibroCesta>();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
             recuperarSesion();
             mostrar();
          
-            if (!this.IsPostBack)
-            {
+            
                 HttpCookie cookieCesta = this.Request.Cookies["cesta"];
                 String isbnLibrosCesta = cookieCesta.Values.ToString().Split('&')[1].Replace("isbn=", "");
                 List<String> isbnsFiltrados = isbnLibrosCesta.Split(new char[] { '-' }).ToList();
 
-                List<Libro> listaLibrosCesta = controladorVistaCesta.buscarLibrosISBN(isbnsFiltrados);
+                listaLibrosCesta = controladorVistaCesta.buscarLibrosISBN(isbnsFiltrados);
 
                 cargarCesta(listaLibrosCesta);
-            }
+                
             
+                miniControlListaCompra unlibro = (miniControlListaCompra)this.LoadControl("~/controlesUsuario/miniControlListaCompra.ascx");
 
-            
+
+                foreach (String clave in this.Request.Params)
+                {
+                    if (clave.Contains("BtSeguirComprando")){
+
+                    }
+
+                    if (clave.Contains("BtFinCompra"))
+                    {
+
+                    }
+                    if (clave.Contains("ButtonDelUnit"))
+                    {
+                        String titulo = clave.Split(':')[2];
+                        addUnidad(titulo, listaLibrosCesta);
+
+                    }
+                    if (clave.Contains("ButtonAddUnit"))
+                    {
+                        unlibro.UnidadesControl += 1;
+                    }
+
+                    if (clave.Contains("btBorrar"))
+                    {
+                        String titulo = clave.Split(':')[1];
+                        borrarCesta();
+                        borrar(listaLibrosCesta, titulo);
+                        cargarCesta(listaLibrosCesta);
+                    }
+                }
 
         }
 
-        private void cargarCesta (List<Libro> listaLibrosCesta)
+
+        private void borrar(List<Libro> listaLibrosCesta, String titulo)
+        {
+            Libro libro = new Libro();
+
+            foreach(Libro unlibro in listaLibrosCesta)
+            {
+                libro = (from linea in listaLibrosCesta
+                         let tituloFiltro = linea.titulo
+                         where tituloFiltro == titulo
+                         select linea).SingleOrDefault();
+            }
+
+            listaLibrosCesta.Remove(libro);
+        }
+
+        private void addUnidad(String titulo, List<Libro> listaLibrosCesta)
+        {
+            Libro libro = new Libro();
+
+            foreach (Libro unlibro in listaLibrosCesta)
+            {
+                libro = (from linea in listaLibrosCesta
+                         let tituloFiltro = linea.titulo
+                         where tituloFiltro == titulo
+                         select linea).SingleOrDefault();        
+            }
+
+           
+
+        }
+
+        private void cargarCesta (List<LibroCesta> listaLibrosCesta)
         {
 
             for (int i =0; i<listaLibrosCesta.Count;i++)
@@ -51,14 +114,22 @@ namespace LibreriaAgapeaNuevo
                 unlibro.TituloControl = listaLibrosCesta[i].titulo;
                 unlibro.AutorControl = listaLibrosCesta[i].autor;
                 unlibro.PrecioControl = listaLibrosCesta[i].precio.ToString();
-                unlibro.UnidadesControl.ToString();
-               
+                unlibro.UnidadesControl = 1;
 
-                //((LinkButton)unlibro.FindControl("linkbttitulo")).ID += libro.ISBN10.ToString();
+                ((Button)unlibro.FindControl("ButtonDelUnit")).ID += ":" + listaLibrosCesta[i].titulo.ToString();
+                ((Button)unlibro.FindControl("ButtonAddUnit")).ID += ":" + listaLibrosCesta[i].titulo.ToString();
+                ((Button)unlibro.FindControl("btBorrar")).ID += ":" + listaLibrosCesta[i].titulo.ToString();
+
+
 
                 celda.Controls.Add(unlibro);
 
             }
+        }
+
+        private void borrarCesta()
+        {
+            TableListaCesta.Controls.RemoveAt(0);
         }
 
 
