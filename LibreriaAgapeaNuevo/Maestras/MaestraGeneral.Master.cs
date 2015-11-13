@@ -12,7 +12,7 @@ namespace LibreriaAgapeaNuevo.Maestras
 {
     public partial class MaestraGeneral : System.Web.UI.MasterPage
     {
-        private Dictionary<String, Libro> coleccionLibros;
+        private Dictionary<string, Libro> coleccionLibros;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,10 +29,10 @@ namespace LibreriaAgapeaNuevo.Maestras
  
         }
 
-        private void CargaTreeView(Dictionary<String, List<String>> datos)
+        private void CargaTreeView(Dictionary<string, List<string>> datos)
         {
             datos.Keys.ToList().ForEach(valor => TreeViewCategorias.Nodes.Add(new TreeNode() { Text = valor, Value = "categoria:" + valor })); //...asi creamos los nodos principales
-            datos.Keys.ToList().ForEach(delegate (String cat)
+            datos.Keys.ToList().ForEach(delegate (string cat)
             {
                 datos[cat].ForEach(subcategoria => TreeViewCategorias.FindNode("categoria:" + cat).ChildNodes.Add(new TreeNode() { Text = subcategoria, Value = "subcategoria:" + subcategoria }));
             }); //...asi añadimos las subcategorias a cada nodo del treeview que representa una categoria...

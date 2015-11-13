@@ -7,15 +7,15 @@ namespace LibreriaAgapeaNuevo.App_Code.Modelos
 {
     public class Libro
     {
-        public String titulo { get; set; }
-        public String autor { get; set; }
-        public String editorial { get; set; }
+        public string titulo { get; set; }
+        public string autor { get; set; }
+        public string editorial { get; set; }
         public int numPaginas { get; set; }
-        public String ISBN10 { get; set; }
-        public String ISBN13 { get; set; }
+        public string ISBN10 { get; set; }
+        public string ISBN13 { get; set; }
         public Double precio { get; set; }
-        public String categoria { get; set; }
-        public String subcategoria { get; set; }
-        public String resumen { get; set; }
+        public string categoria { get; set; }
+        public string subcategoria { get; set; }
+        public string resumen { get; set; }
     }
 }

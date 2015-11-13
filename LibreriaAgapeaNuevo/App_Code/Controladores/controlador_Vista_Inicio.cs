@@ -8,14 +8,14 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
 {
     public class controlador_Vista_Inicio
     {
-        private String ficheroLibros = "~/Ficheros/librosStock.txt";
+        private string ficheroLibros = "~/Ficheros/librosStock.txt";
         private controlador_Acceso_Ficheros ficheros = new controlador_Acceso_Ficheros();
 
 
         public List<Libro> devuelveLibros()
         {
 
-            List<String> listado = new List<String>();
+            List<string> listado = new List<string>();
             listado = ficheros.leeDatosFichero(ficheroLibros);
 
             List<Libro> listaLibros = new List<Libro>();
@@ -23,7 +23,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
             for (int i = 0; i < listado.Count; i++)
             {
                 char[] separator = { ':' };
-                String[] campos = listado[i].Split(separator);
+                string[] campos = listado[i].Split(separator);
 
                 Libro libro = new Libro();
 
@@ -45,7 +45,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
         }
 
 
-        public Dictionary<String, List<string>> RecuperarCatySub()
+        public Dictionary<string, List<string>> RecuperarCatySub()
         {
             Dictionary<string, List<string>> CategoriasySubcategorias = new Dictionary<string, List<string>>();
             List<string> filas = ficheros.leeDatosFichero(ficheroLibros);
@@ -74,11 +74,11 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
 
 
 
-        public Dictionary<String, Libro> RecuperarLibrosMasVendidos()
+        public Dictionary<string, Libro> RecuperarLibrosMasVendidos()
         {
-            Dictionary<String, Libro> coleccionLibros = new Dictionary<String, Libro>();
+            Dictionary<string, Libro> coleccionLibros = new Dictionary<string, Libro>();
 
-            foreach (String libro in ficheros.leeDatosFichero(ficheroLibros))
+            foreach (string libro in ficheros.leeDatosFichero(ficheroLibros))
             {
                 string[] campos = libro.Split(new char[] { ':' });
                 coleccionLibros.Add(campos[5], new Modelos.Libro()
@@ -142,7 +142,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
 
         public void crearLibros()
         {
-            List<String> listaLibros = new List<String>();
+            List<string> listaLibros = new List<string>();
             listaLibros = ficheros.leeDatosFichero(ficheroLibros);
 
             Libro libro = new Libro();
@@ -150,7 +150,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
             for (int i = 0; i < listaLibros.Count; i++)
             {
                 char[] separator = { ':' };
-                String[] campos = listaLibros[i].Split(separator);
+                string[] campos = listaLibros[i].Split(separator);
 
                 libro.titulo = campos[0];
                 libro.autor = campos[1];

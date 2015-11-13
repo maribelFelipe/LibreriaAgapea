@@ -16,9 +16,9 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
     public class controlador_generar_PDF
     {
 
-        public PdfDocument CrearDocPDF(Dictionary<String, Libro> coleccionLibrosCesta)
+        public PdfDocument CrearDocPDF(Dictionary<string, Libro> coleccionLibrosCesta)
         {
-            String factura = GenerarFacturaEnHtml(coleccionLibrosCesta);
+            string factura = GenerarFacturaEnHtml(coleccionLibrosCesta);
             PdfDocument mifactura = new PdfDocument();
             Task generarPDF = new Task(() => mifactura.LoadFromHTML(factura, false, true, true));
             generarPDF.Start();
@@ -33,7 +33,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
         }
 
 
-        private String GenerarFacturaEnHtml (Dictionary<String,Libro> coleccionLibrosCesta)
+        private string GenerarFacturaEnHtml (Dictionary<string,Libro> coleccionLibrosCesta)
         {
             //Documento html
             StringBuilder miDocHtml = new StringBuilder();

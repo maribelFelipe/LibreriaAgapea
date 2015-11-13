@@ -10,10 +10,10 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
     {
         private controlador_Acceso_Ficheros ficheros = new controlador_Acceso_Ficheros();
         private Usuario usuario = new Usuario();
-        private String ficheroUsuarios = "~/Ficheros/usuarios.txt";
+        private string ficheroUsuarios = "~/Ficheros/usuarios.txt";
 
 
-        public void GrabarDatosUsuario(String nombreUsuario, String email, String passw, String nombre, String apellidos)
+        public void GrabarDatosUsuario(string nombreUsuario, string email, string passw, string nombre, string apellidos)
         {
             Usuario nuevoUsuario = new Usuario();
             nuevoUsuario.nombreUsuario = nombreUsuario;
@@ -22,7 +22,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
             nuevoUsuario.nombre = nombre;
             nuevoUsuario.apellidos = apellidos;
 
-            String nuevaLinea = nuevoUsuario.nombreUsuario + ":" + nuevoUsuario.email + ":" + nuevoUsuario.passw +
+            string nuevaLinea = nuevoUsuario.nombreUsuario + ":" + nuevoUsuario.email + ":" + nuevoUsuario.passw +
                ":" + nuevoUsuario.nombre + ":" + nuevoUsuario.apellidos;
 
             ficheros.AddDatosFichero(ficheroUsuarios, nuevaLinea);
@@ -30,7 +30,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
         }
 
 
-        public Boolean compruebaExisteEmailFichero(String email)
+        public Boolean compruebaExisteEmailFichero(string email)
 
         {
             if (ficheros.compruebaExisteDato(ficheroUsuarios, email))
@@ -43,7 +43,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
             }
         }
 
-        public Boolean compruebaExisteUsuario(String usuario, String passw)
+        public Boolean compruebaExisteUsuario(string usuario, string passw)
         {
             if (ficheros.compruebaExisteDato(ficheroUsuarios, usuario, passw, 0, 2))
             {

@@ -89,7 +89,7 @@ namespace LibreriaAgapeaNuevo
                     #endregion
 
                     #region------- Postback buscador
-                    else if (this.Request.Params.Keys.Cast<String>().Contains("ctl00$RadioBtBuscar"))
+                    else if (this.Request.Params.Keys.Cast<string>().Contains("ctl00$RadioBtBuscar"))
                     {
                         string filtro = ((RadioButtonList)this.Master.FindControl("RadioBtBuscar")).SelectedItem.Text;
                         string valor = ((TextBox)this.Master.FindControl("TxtBxBuscador")).Text;
@@ -143,7 +143,7 @@ namespace LibreriaAgapeaNuevo
                     else
                     {
 
-                    foreach (String clave in this.Request.Params)
+                    foreach (string clave in this.Request.Params)
                     {
                         if (clave.Contains("btcomprar"))
                         {
@@ -154,9 +154,8 @@ namespace LibreriaAgapeaNuevo
                             try
                             {
                                 cookieCesta = this.Request.Cookies["cesta"];
-                                string todosIsbns = clave.Split('=')[2];
-                            
-                                cookieCesta.Values["isbn"] += "-" + isbn_seleccionado;
+                                //string[] todosIsbns = clave.Split(new char [] { ':' });
+                                //cookieCesta.Values["isbn"] += "-" + isbn_seleccionado;
                              
                             }
                             catch
@@ -165,14 +164,14 @@ namespace LibreriaAgapeaNuevo
 
                                 if (this.Request.QueryString["usuario"] != null)
                                 {
-                                    cookieCesta.Values["usuario"] = (String)this.Request.QueryString["usuario"];
-                                    cookieCesta.Values["isbn"] = isbn_seleccionado + ":1" ;
+                                    cookieCesta.Values["usuario"] = (string)this.Request.QueryString["usuario"];
+                                    //cookieCesta.Values["isbn"] = isbn_seleccionado + ":" + 1;
                                 }
 
                                 else
                                 {
                                     cookieCesta.Values["usuario"] = "Anonimo";
-                                    cookieCesta.Values["isbn"] = isbn_seleccionado;
+                                    //cookieCesta.Values["isbn"] = isbn_seleccionado + ":" + 1;
                                 }
 
                                
@@ -182,15 +181,16 @@ namespace LibreriaAgapeaNuevo
                             cookieCesta.Expires = DateTime.Now.AddDays(1);
                             Response.Cookies.Add(cookieCesta);
 
+                            Cesta nuevaCesta = new Cesta(usuario);
+
+                           
+
                             this.Response.Cookies.Add(cookieCesta);
                             this.Response.Redirect("VistaCestaCompra.aspx");
                         }
                     }
 
                     #endregion
-
-
-
 
                 }
 
@@ -267,7 +267,7 @@ namespace LibreriaAgapeaNuevo
 
             Label usuarioRegistrado = (Label)this.Master.FindControl("LabelUsuarioRegistrado");
 
-            String usuario = (String)this.Request.QueryString["usuario"];
+            string usuario = (string)this.Request.QueryString["usuario"];
             if (usuario != null)
             {
                 usuarioRegistrado.Text = "Usuario: " + usuario;
@@ -283,11 +283,11 @@ namespace LibreriaAgapeaNuevo
 
         private void mostrar()
         {
-            String mensaje = "";
+            string mensaje = "";
 
             TextBox TxtBoxVariables = (TextBox)this.Master.FindControl("TxtBoxVariables");
 
-            foreach (String clave in this.Request.Params.Keys)
+            foreach (string clave in this.Request.Params.Keys)
             {
                 mensaje += "clave:_" + clave + "--------------valor:_" + this.Request.Params[clave].ToString() + "\n";
             }

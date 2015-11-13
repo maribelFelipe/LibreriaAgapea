@@ -12,19 +12,19 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
     public class controlador_Vista_Cesta
     {
         private controlador_Acceso_Ficheros ficheros = new controlador_Acceso_Ficheros();
-        private String ficheroLibros = "~/Ficheros/librosStock.txt";
+        private string ficheroLibros = "~/Ficheros/librosStock.txt";
 
-        public List<Libro> buscarLibrosISBN(List<String> listaIsbns)
+        public List<Libro> buscarLibrosISBN(List<string> listaIsbns)
         {
 
-            List<String> listado = ficheros.leeDatosFichero(ficheroLibros);
-            List<String> listadoFiltrado = new List<String>();
+            List<string> listado = ficheros.leeDatosFichero(ficheroLibros);
+            List<string> listadoFiltrado = new List<string>();
 
-            foreach (String linea in listaIsbns)
+            foreach (string linea in listaIsbns)
             {
                 if (linea != null)
                 {
-                    String encontrado = (from unalinea in listado
+                    string encontrado = (from unalinea in listado
                                          let isbn = unalinea.Split(new char[] { ':' })[4]
                                          where isbn == linea
                                          select unalinea).SingleOrDefault();
@@ -41,7 +41,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
             for (int i = 0; i < listadoFiltrado.Count; i++)
             {
                 
-                String[] campos = listadoFiltrado[i].Split(new char[] { ':' });
+                string[] campos = listadoFiltrado[i].Split(new char[] { ':' });
 
                 Libro libro = new Libro();
 

@@ -7,10 +7,16 @@ namespace LibreriaAgapeaNuevo.App_Code.Modelos
 {
     public class Cesta
     {
-        private List<Libro> cesta { get; set; }
-        private Usuario usuario { get; set;  }
-        private DateTime fecha { get; set;  }
+        public List<Libro> listaLibrosCesta { get; set; }
+        public Usuario usuario { get; set;  }
+        public DateTime fecha { get; set;  }
 
+        public Cesta(Usuario usuario)
+        {
+            listaLibrosCesta = new List<Libro>();
+            this.usuario = usuario;
+            fecha = DateTime.Now;
+        }
 
     }
 }

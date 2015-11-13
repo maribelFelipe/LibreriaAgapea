@@ -29,11 +29,11 @@ namespace LibreriaAgapeaNuevo
             if (IsValid)
             {
 
-                String nombreUsuario = TextBoxUsuario.Text;
-                String email = TextBoxMail.Text;
-                String passw = TextBoxPassw1.Text;
-                String nombre = TextBoxNombre.Text;
-                String apellidos = TextBoxApellidos.Text;
+                string nombreUsuario = TextBoxUsuario.Text;
+                string email = TextBoxMail.Text;
+                string passw = TextBoxPassw1.Text;
+                string nombre = TextBoxNombre.Text;
+                string apellidos = TextBoxApellidos.Text;
 
                 controladorVistaRegistro.GrabarDatosUsuario(nombreUsuario, email, passw, nombre, apellidos);
 
@@ -59,7 +59,7 @@ namespace LibreriaAgapeaNuevo
         protected void CustomValidator2_ServerValidate(object source, ServerValidateEventArgs args)
         {
 
-            String email = TextBoxMail.Text;
+            string email = TextBoxMail.Text;
             if (controladorVistaRegistro.compruebaExisteEmailFichero(email))
             {
                 args.IsValid = false;
@@ -70,7 +70,7 @@ namespace LibreriaAgapeaNuevo
         protected void CValLongitudPassw_ServerValidate(object source, ServerValidateEventArgs args)
         {
 
-            String passw = TextBoxPassw1.Text;
+            string passw = TextBoxPassw1.Text;
 
             if (passw.Length < 8)
             {

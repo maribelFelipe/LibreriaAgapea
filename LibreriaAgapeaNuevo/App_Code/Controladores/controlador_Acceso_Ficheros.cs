@@ -12,11 +12,11 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
     {
         private StreamReader lectorFichero;
         private StreamWriter escritorFichero;
-        //private String ficheroUsuarios = "~/Ficheros/usuarios.txt";
-        //private String ficheroLibros = "~/Ficheros/librosStock.txt";
+        //private string ficheroUsuarios = "~/Ficheros/usuarios.txt";
+        //private string ficheroLibros = "~/Ficheros/librosStock.txt";
 
 
-        public void AddDatosFichero(String fichero, String datos)
+        public void AddDatosFichero(string fichero, string datos)
         {
             this.escritorFichero = new StreamWriter(HttpContext.Current.Request.MapPath(fichero), true);
             escritorFichero.WriteLine(datos);
@@ -25,11 +25,11 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
         }
 
 
-        public List<String> leeDatosFichero(String fichero)
+        public List<string> leeDatosFichero(string fichero)
         {
             this.lectorFichero = new StreamReader(HttpContext.Current.Request.MapPath(fichero));
 
-            List<String> listaContenidoFichero = new List<String>();
+            List<string> listaContenidoFichero = new List<string>();
 
             listaContenidoFichero = (from unalinea in this.lectorFichero.ReadToEnd().Split(new char[] { '\r', '\n' }).Where(unalinea => unalinea.Length != 0) //.Where(unalinea => !System.Text.RegularExpression.Regex("^$").Math(unalinea).Success)
                                      select unalinea).ToList();
@@ -39,24 +39,24 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
 
 
 
-        public Boolean compruebaExisteDato(String fichero, String dato)
+        public Boolean compruebaExisteDato(string fichero, string dato)
         {
             this.lectorFichero = new StreamReader(HttpContext.Current.Request.MapPath(fichero));
 
-            List<String> listaDatos = new List<string>();
-            String linea;
+            List<string> listaDatos = new List<string>();
+            string linea;
 
             while ((linea = lectorFichero.ReadLine()) != null)
             {
                 char[] separator = { ':' };
-                String[] campos = linea.Split(separator);
+                string[] campos = linea.Split(separator);
                 listaDatos.Add(campos[1]);
 
             }
 
             Boolean encontrado = false;
 
-            foreach (String datoEnLista in listaDatos)
+            foreach (string datoEnLista in listaDatos)
             {
                 if (dato.Equals(datoEnLista))
                 {
@@ -68,7 +68,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
             return encontrado;
         }
 
-        public bool compruebaExisteDato(String fichero, String dato1, String dato2, int campo1, int campo2)
+        public bool compruebaExisteDato(string fichero, string dato1, string dato2, int campo1, int campo2)
         {
             this.lectorFichero = new StreamReader(HttpContext.Current.Request.MapPath(fichero));
 
@@ -83,18 +83,18 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
 
         }
 
-       /* public List<String> buscarDatoEnFichero(String fichero, List<String> listado, int campo)
+       /* public List<string> buscarDatoEnFichero(string fichero, List<string> listado, int campo)
         {
             this.lectorFichero = new StreamReader(HttpContext.Current.Request.MapPath(fichero));
 
-            List<String> todos = leeDatosFichero(fichero);
+            List<string> todos = leeDatosFichero(fichero);
 
-            List<String> resultadoBusqueda = new List<String>();
+            List<string> resultadoBusqueda = new List<string>();
 
-            foreach ( String linea in listado )
+            foreach ( string linea in listado )
             {
                 if ( linea != null) { 
-                String encontrado = (from unalinea in todos
+                string encontrado = (from unalinea in todos
                                      let isbn = unalinea.Split(new char[] { ':' })[campo]
                                      where isbn == linea
                                      select unalinea).SingleOrDefault();
