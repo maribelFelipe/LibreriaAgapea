@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using LibreriaAgapeaNuevo.App_Code.Modelos;
 
 namespace LibreriaAgapeaNuevo.controlesUsuario
 {
@@ -12,6 +13,7 @@ namespace LibreriaAgapeaNuevo.controlesUsuario
 
         private string titulo;
         private string autor;
+        private string isbn10;
         private string precio;
         private int unidades;
 
@@ -55,9 +57,22 @@ namespace LibreriaAgapeaNuevo.controlesUsuario
             set
             {
                 this.unidades = value;
-                this.LblUnidades.Text = "";
+                this.LblUnidades.Text = this.unidades.ToString();
             }
         }
+
+        public string isbnControl
+        {
+            get { return this.isbn10; }
+            set
+            {
+                this.isbn10 = value;
+                this.LblIsbn.Text = this.isbn10;
+
+            }
+        }
+
+   
 
 
 

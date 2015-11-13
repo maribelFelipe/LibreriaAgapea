@@ -13,30 +13,33 @@ namespace LibreriaAgapeaNuevo
     public partial class VistaCestaCompra : System.Web.UI.Page
     {
         private controlador_Vista_Cesta controladorVistaCesta = new controlador_Vista_Cesta();
-        private List<LibroCesta> listaLibrosCesta = new List<LibroCesta>();
+        private List<Libro> listaLibrosCesta = new List<Libro>();
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             recuperarSesion();
             mostrar();
-         
-            
-                HttpCookie cookieCesta = this.Request.Cookies["cesta"];
-                String isbnLibrosCesta = cookieCesta.Values.ToString().Split('&')[1].Replace("isbn=", "");
-                List<String> isbnsFiltrados = isbnLibrosCesta.Split(new char[] { '-' }).ToList();
 
-                listaLibrosCesta = controladorVistaCesta.buscarLibrosISBN(isbnsFiltrados);
+            if (!this.IsPostBack)
+            {
+                recuperarCookie();
+                cargarCesta(listaLibrosCesta);
+            }
+
+            else
+            {
+                recuperarCookie();
 
                 cargarCesta(listaLibrosCesta);
-                
-            
+
                 miniControlListaCompra unlibro = (miniControlListaCompra)this.LoadControl("~/controlesUsuario/miniControlListaCompra.ascx");
 
 
                 foreach (String clave in this.Request.Params)
                 {
-                    if (clave.Contains("BtSeguirComprando")){
+                    if (clave.Contains("BtSeguirComprando"))
+                    {
 
                     }
 
@@ -47,7 +50,7 @@ namespace LibreriaAgapeaNuevo
                     if (clave.Contains("ButtonDelUnit"))
                     {
                         String titulo = clave.Split(':')[2];
-                        addUnidad(titulo, listaLibrosCesta);
+                        borrar(listaLibrosCesta, titulo);
 
                     }
                     if (clave.Contains("ButtonAddUnit"))
@@ -63,7 +66,7 @@ namespace LibreriaAgapeaNuevo
                         cargarCesta(listaLibrosCesta);
                     }
                 }
-
+            }
         }
 
 
@@ -98,7 +101,7 @@ namespace LibreriaAgapeaNuevo
 
         }
 
-        private void cargarCesta (List<LibroCesta> listaLibrosCesta)
+        private void cargarCesta (List<Libro> listaLibrosCesta)
         {
 
             for (int i =0; i<listaLibrosCesta.Count;i++)
@@ -114,17 +117,25 @@ namespace LibreriaAgapeaNuevo
                 unlibro.TituloControl = listaLibrosCesta[i].titulo;
                 unlibro.AutorControl = listaLibrosCesta[i].autor;
                 unlibro.PrecioControl = listaLibrosCesta[i].precio.ToString();
-                unlibro.UnidadesControl = 1;
+                
 
-                ((Button)unlibro.FindControl("ButtonDelUnit")).ID += ":" + listaLibrosCesta[i].titulo.ToString();
-                ((Button)unlibro.FindControl("ButtonAddUnit")).ID += ":" + listaLibrosCesta[i].titulo.ToString();
-                ((Button)unlibro.FindControl("btBorrar")).ID += ":" + listaLibrosCesta[i].titulo.ToString();
-
-
+                ((Button)unlibro.FindControl("ButtonDelUnit")).ID += ":" + listaLibrosCesta[i].titulo;
+                ((Button)unlibro.FindControl("ButtonAddUnit")).ID += ":" + listaLibrosCesta[i].titulo;
+                ((Button)unlibro.FindControl("btBorrar")).ID += ":" + listaLibrosCesta[i].titulo;
 
                 celda.Controls.Add(unlibro);
 
             }
+        }
+
+
+        public void recuperarCookie()
+        {
+            HttpCookie cookieCesta = this.Request.Cookies["cesta"];
+            String isbnLibrosCesta = cookieCesta.Values.ToString().Split('&')[1].Replace("isbn=", "");
+            List<String> isbnsFiltrados = isbnLibrosCesta.Split(new char[] { '-' }).ToList();
+
+            listaLibrosCesta = controladorVistaCesta.buscarLibrosISBN(isbnsFiltrados);
         }
 
         private void borrarCesta()

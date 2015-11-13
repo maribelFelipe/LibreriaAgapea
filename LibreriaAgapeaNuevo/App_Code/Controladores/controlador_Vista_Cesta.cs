@@ -14,7 +14,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
         private controlador_Acceso_Ficheros ficheros = new controlador_Acceso_Ficheros();
         private String ficheroLibros = "~/Ficheros/librosStock.txt";
 
-        public List<LibroCesta> buscarLibrosISBN(List<String> listaIsbns)
+        public List<Libro> buscarLibrosISBN(List<String> listaIsbns)
         {
 
             List<String> listado = ficheros.leeDatosFichero(ficheroLibros);

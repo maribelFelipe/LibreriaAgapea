@@ -147,13 +147,17 @@ namespace LibreriaAgapeaNuevo
                     {
                         if (clave.Contains("btcomprar"))
                         {
-                            string isbn_seleccionado = clave.Split('$')[3].Replace("btcomprar", "");  
-
+                            string isbn_seleccionado = clave.Split('$')[3].Replace("btcomprar", "");
+                            
                             HttpCookie cookieCesta;
+
                             try
                             {
                                 cookieCesta = this.Request.Cookies["cesta"];
+                                string todosIsbns = clave.Split('=')[2];
+                            
                                 cookieCesta.Values["isbn"] += "-" + isbn_seleccionado;
+                             
                             }
                             catch
                             {
@@ -162,7 +166,7 @@ namespace LibreriaAgapeaNuevo
                                 if (this.Request.QueryString["usuario"] != null)
                                 {
                                     cookieCesta.Values["usuario"] = (String)this.Request.QueryString["usuario"];
-                                    cookieCesta.Values["isbn"] = isbn_seleccionado;
+                                    cookieCesta.Values["isbn"] = isbn_seleccionado + ":1" ;
                                 }
 
                                 else
@@ -244,7 +248,7 @@ namespace LibreriaAgapeaNuevo
                         unlibro.PrecioControl = listaLibros[contador].precio.ToString();
 
                         ((LinkButton)unlibro.FindControl("linkbttitulo")).ID += listaLibros[contador].ISBN10.ToString();
-                        ((Button)unlibro.FindControl("btcomprar")).ID += listaLibros[contador].ISBN10.ToString(); //ctl00$ContentPlaceHolder1$ctl00$btcomprar1111111111
+                        ((Button)unlibro.FindControl("btcomprar")).ID += listaLibros[contador].ISBN10.ToString(); 
 
                         celda.Controls.Add(unlibro);
 

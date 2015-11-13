@@ -109,7 +109,6 @@
     <Compile Include="App_Code\Controladores\controlador_Vista_Inicio.cs" />
     <Compile Include="App_Code\Controladores\controlador_Vista_Registro.cs" />
     <Compile Include="App_Code\Modelos\Cesta.cs" />
-    <Compile Include="App_Code\Modelos\LibroCesta.cs" />
     <Compile Include="controlesUsuario\miniControlLibro.ascx.cs">
       <DependentUpon>miniControlLibro.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

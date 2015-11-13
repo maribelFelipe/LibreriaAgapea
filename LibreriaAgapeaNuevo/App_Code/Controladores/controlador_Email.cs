@@ -13,12 +13,12 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
 
         public bool MandarEmail(Usuario user)
         {
-            MailMessage mensajeEnviado = this.CrearEmail(user);
+            //MailMessage mensajeEnviado = this.CrearEmail(user);
             SmtpClient server = new SmtpClient("smtp.gmail.com", 587);
 
             try
             {
-                server.Send(mensajeEnviado);
+                //server.Send(mensajeEnviado);
                 return true;
             }
             catch
@@ -28,17 +28,17 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
             
         }
 
-        private MailMessage CrearEmail(Usuario user)
+       /* private MailMessage CrearEmail(Usuario user)
         {
-            Dictionary<string, Libro> librosCarrito = user.obtenerCarrito();
+            //Dictionary<string, Libro> librosCarrito = user.obtenerCarrito();
             controlador_generar_PDF generadorFactura = new controlador_generar_PDF();
 
             MailMessage mail = new MailMessage();
             mail.To.Add(new MailAddress(user.email));
             mail.From = new MailAddress("agapea@agapea.com");
             mail.Subject = "Factura con fecha:";
-            mail.Attachments.Add(new Attachment(generadorFactura.CrearDocPDF(librosCarrito));
+            //mail.Attachments.Add(new Attachment(generadorFactura.CrearDocPDF(librosCarrito));
 
-        }
+        }*/
     }
 }

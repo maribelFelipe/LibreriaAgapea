@@ -27,6 +27,16 @@
          
           
 
+            .auto-style3 {
+                width: 174px;
+            }
+            .auto-style4 {
+                width: 229px;
+            }
+
+         
+          
+
             </style>
     </head>
     <body>
@@ -34,15 +44,20 @@
 
     
      <tr>
-        <td class="auto-style1">
+        <td class="auto-style1" colspan="2">
             <asp:LinkButton ID="LinkBtTitulo" runat="server" Text="Titulo"></asp:LinkButton>
         </td>
 
     </tr>
     <tr>
-                <td class="auto-style1">
+                <td class="auto-style3">
             <asp:Label ID="LblAutor" runat="server" Text="Autor"></asp:Label>
         </td>
+
+        
+                <td class="auto-style4">
+                    <asp:Label ID="LblIsbn" runat="server" Text="ISBN10"></asp:Label>
+                  </td>
 
         
         <td class="auto-style2" style="align-items:center">

@@ -39,6 +39,8 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
             StringBuilder miDocHtml = new StringBuilder();
             miDocHtml.Append("<html><head><tittle>Factura</tittle></head><body>");
             miDocHtml.Append("<img src=' " + HttpContext.Current + "' />");
+
+            return miDocHtml.ToString();
         }
     }
 }
