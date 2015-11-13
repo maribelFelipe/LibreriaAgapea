@@ -149,11 +149,12 @@ namespace LibreriaAgapeaNuevo
                         {
                             string isbn_seleccionado = clave.Split('$')[3].Replace("btcomprar", "");
                             
-                            HttpCookie cookieCesta;
+                            HttpCookie cookieCesta;                                                      
 
                             try
                             {
                                 cookieCesta = this.Request.Cookies["cesta"];
+
                                 //string[] todosIsbns = clave.Split(new char [] { ':' });
                                 //cookieCesta.Values["isbn"] += "-" + isbn_seleccionado;
                              
@@ -172,18 +173,14 @@ namespace LibreriaAgapeaNuevo
                                 {
                                     cookieCesta.Values["usuario"] = "Anonimo";
                                     //cookieCesta.Values["isbn"] = isbn_seleccionado + ":" + 1;
-                                }
-
-                               
+                                }                               
                             }
 
                             cookieCesta.Values["lastVisit"] = DateTime.Now.ToString();
                             cookieCesta.Expires = DateTime.Now.AddDays(1);
                             Response.Cookies.Add(cookieCesta);
 
-                            Cesta nuevaCesta = new Cesta(usuario);
-
-                           
+                            Cesta nuevaCesta = new Cesta(usuario);                           
 
                             this.Response.Cookies.Add(cookieCesta);
                             this.Response.Redirect("VistaCestaCompra.aspx");
@@ -253,11 +250,8 @@ namespace LibreriaAgapeaNuevo
                         celda.Controls.Add(unlibro);
 
                         contador += 1;
-                    }
-
-                    
+                    }                    
                 }
-
                 }
             }
         }
