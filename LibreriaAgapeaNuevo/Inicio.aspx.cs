@@ -153,14 +153,35 @@ namespace LibreriaAgapeaNuevo
 
                             try
                             {
-                                cookieCesta = this.Request.Cookies["cesta"];
+                                cookieCesta = (HttpCookie)this.Request.Cookies["cesta"];
 
-                                List<string> todosLosLibros = new List<string>();                           
-                                todosLosLibros = cookieCesta.Values["isbn"].Split('-').ToList();
+                                if (cookieCesta != null)
+                                {
+                                    List<string> todosLosLibros = new List<string>();
+                                    todosLosLibros = cookieCesta.Values["isbn"].Split('-').ToList();
 
-                                string cookieFiltrada = filtrarCookie(isbn_seleccionado, todosLosLibros);
+                                    string cookieFiltrada = filtrarCookie(isbn_seleccionado, todosLosLibros);
 
-                                cookieCesta.Values["isbn"] = cookieFiltrada;
+                                    cookieCesta.Values["isbn"] = cookieFiltrada;
+                                } 
+
+                                else
+                                {
+                                    cookieCesta = new HttpCookie("cesta");
+
+                                    if (this.Request.QueryString["usuario"] != null)
+                                    {
+                                        cookieCesta.Values["usuario"] = (string)this.Request.QueryString["usuario"];
+                                        cookieCesta.Values["isbn"] = isbn_seleccionado + ":" + 1;
+                                    }
+
+                                    else
+                                    {
+                                        cookieCesta.Values["usuario"] = "Anonimo";
+                                        cookieCesta.Values["isbn"] = isbn_seleccionado + ":" + 1;
+                                    }
+                                }
+
                              
                             }
                             catch

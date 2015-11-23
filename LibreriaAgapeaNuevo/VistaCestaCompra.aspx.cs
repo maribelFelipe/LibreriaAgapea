@@ -23,15 +23,12 @@ namespace LibreriaAgapeaNuevo
 
             if (!this.IsPostBack)
             {
-                recuperarCookie();
-                cargarCesta(listaLibrosCesta);
+                cargarCesta();
             }
 
             else
             {
-                recuperarCookie();
-
-                cargarCesta(listaLibrosCesta);
+                cargarCesta();
 
                 miniControlListaCompra unlibro = (miniControlListaCompra)this.LoadControl("~/controlesUsuario/miniControlListaCompra.ascx");
 
@@ -63,7 +60,7 @@ namespace LibreriaAgapeaNuevo
                         string titulo = clave.Split(':')[1];
                         borrarCesta();
                         borrar(listaLibrosCesta, titulo);
-                        cargarCesta(listaLibrosCesta);
+                        cargarCesta();
                     }
                 }
             }
@@ -101,41 +98,54 @@ namespace LibreriaAgapeaNuevo
 
         }
 
-        private void cargarCesta (List<Libro> listaLibrosCesta)
+        private void cargarCesta ()
         {
+            HttpCookie cookieCesta = this.Request.Cookies["cesta"];
 
-            for (int i =0; i<listaLibrosCesta.Count;i++)
-            { 
-          
+            // isbn:cant-isbn:cant-isbn:cant
+            string isbnLibrosCesta = cookieCesta.Value.ToString().Split('&')[1].Replace("isbn=", "");
+
+            // Lista en la que cada elemento es isbn:cant
+            List<string> isbnsFiltrados = isbnLibrosCesta.Split(new char[] { '-' }).ToList();
+
+
+            double importeLibros = 0;
+            double importeGastosEnvio = 3.50;
+            double total = 0; 
+
+            for (int i = 0 ; i < isbnsFiltrados.Count ; i++)
+            {
+
+                Libro libroCesta = controladorVistaCesta.buscarUnLibro(isbnsFiltrados[i].Substring(0, 10));
+                int cantidad = int.Parse(isbnsFiltrados[i].Substring(11));
+
                 miniControlListaCompra unlibro = (miniControlListaCompra)this.LoadControl("~/controlesUsuario/miniControlListaCompra.ascx");
 
                 TableListaCesta.Rows.Add(new TableRow());
-
                 TableCell celda = new TableCell();
-
                 TableListaCesta.Rows[i].Cells.Add(celda);
-                unlibro.TituloControl = listaLibrosCesta[i].titulo;
-                unlibro.AutorControl = listaLibrosCesta[i].autor;
-                unlibro.PrecioControl = listaLibrosCesta[i].precio.ToString();
-                
 
-                ((Button)unlibro.FindControl("ButtonDelUnit")).ID += ":" + listaLibrosCesta[i].titulo;
-                ((Button)unlibro.FindControl("ButtonAddUnit")).ID += ":" + listaLibrosCesta[i].titulo;
-                ((Button)unlibro.FindControl("btBorrar")).ID += ":" + listaLibrosCesta[i].titulo;
+                unlibro.TituloControl = libroCesta.titulo;
+                unlibro.AutorControl = libroCesta.autor;
+                unlibro.PrecioControl = (libroCesta.precio * cantidad).ToString();
+                unlibro.UnidadesControl = cantidad;
+
+                importeLibros += double.Parse(unlibro.PrecioControl);
+
+                ((Button)unlibro.FindControl("ButtonDelUnit")).ID += ":" + libroCesta.ISBN10 + ":" + cantidad;
+                ((Button)unlibro.FindControl("ButtonAddUnit")).ID += ":" + libroCesta.ISBN10 + ":" + cantidad;
+                ((Button)unlibro.FindControl("btBorrar")).ID += ":" + libroCesta.ISBN10;
 
                 celda.Controls.Add(unlibro);
 
             }
+
+            lblImporteLibros.Text = importeLibros.ToString();
+            LblGastosEnvio.Text = importeGastosEnvio.ToString();
+            LblTotal.Text = (importeLibros + importeGastosEnvio).ToString();
+
         }
 
-
-        public void recuperarCookie()
-        {
-            HttpCookie cookieCesta = this.Request.Cookies["cesta"];
-            string isbnLibrosCesta = cookieCesta.Values.ToString().Split('&')[1].Replace("isbn=", "");
-            List<string> isbnsFiltrados = isbnLibrosCesta.Split(new char[] { '-' }).ToList();
-            listaLibrosCesta = controladorVistaCesta.buscarLibrosISBN(isbnsFiltrados);
-        }
 
         private void borrarCesta()
         {

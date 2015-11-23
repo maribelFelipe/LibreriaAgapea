@@ -92,14 +92,7 @@
             </div>
             <div id="tabla">
             <div id="contDinamico">
-                <table id="tablaLibroCompra">
-                    <tr class="tituloTabla">
-                        <td class="auto-style3"><p>Libro</p></td>
-                        <td class="auto-style7"><p>Unidades</p></td>
-                        <td class="auto-style6"><p>Importe</p></td>
-                        <td class="auto-style5"><p>Quitar</p></td>
-                    </tr>
-                </table>
+                
                 <asp:Table ID="TableListaCesta" runat="server"></asp:Table>
             </div>
             

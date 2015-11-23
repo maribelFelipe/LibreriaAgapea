@@ -14,6 +14,39 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
         private controlador_Acceso_Ficheros ficheros = new controlador_Acceso_Ficheros();
         private string ficheroLibros = "~/Ficheros/librosStock.txt";
 
+
+        public Libro buscarUnLibro (string isbn)
+        {
+            List<string> listadoLibros = ficheros.leeDatosFichero(ficheroLibros);
+
+            string encontrado = (from unlibro in listadoLibros
+                                 let isbnListado = unlibro.Split(new char[] { ':' })[4]
+                                 where isbnListado.Contains(isbn)
+                                 select unlibro).SingleOrDefault();
+
+
+            string[] campos = encontrado.Split(new char[] { ':' });
+
+            Libro libro = new Libro();
+
+            libro.titulo = campos[0];
+            libro.autor = campos[1];
+            libro.editorial = campos[2];
+            libro.numPaginas = int.Parse(campos[3]);
+            libro.ISBN10 = campos[4];
+            libro.ISBN13 = campos[5];
+            libro.precio = double.Parse(campos[6]);
+            libro.categoria = campos[7];
+            libro.subcategoria = campos[8];
+            libro.resumen = campos[9];
+
+            return libro;
+
+        }
+
+
+
+
         public List<Libro> buscarLibrosISBN(List<string> listaIsbns)
         {
 

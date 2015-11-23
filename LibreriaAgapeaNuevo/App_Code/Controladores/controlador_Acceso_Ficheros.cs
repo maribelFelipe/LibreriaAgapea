@@ -83,29 +83,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
 
         }
 
-       /* public List<string> buscarDatoEnFichero(string fichero, List<string> listado, int campo)
-        {
-            this.lectorFichero = new StreamReader(HttpContext.Current.Request.MapPath(fichero));
-
-            List<string> todos = leeDatosFichero(fichero);
-
-            List<string> resultadoBusqueda = new List<string>();
-
-            foreach ( string linea in listado )
-            {
-                if ( linea != null) { 
-                string encontrado = (from unalinea in todos
-                                     let isbn = unalinea.Split(new char[] { ':' })[campo]
-                                     where isbn == linea
-                                     select unalinea).SingleOrDefault();
-
-                resultadoBusqueda.Add(encontrado);
-                }
-
-            }
-
-            return resultadoBusqueda;
-        }*/
+ 
 
     }
 }
