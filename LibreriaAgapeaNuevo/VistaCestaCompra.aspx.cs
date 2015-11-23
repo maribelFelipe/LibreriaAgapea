@@ -134,7 +134,6 @@ namespace LibreriaAgapeaNuevo
             HttpCookie cookieCesta = this.Request.Cookies["cesta"];
             string isbnLibrosCesta = cookieCesta.Values.ToString().Split('&')[1].Replace("isbn=", "");
             List<string> isbnsFiltrados = isbnLibrosCesta.Split(new char[] { '-' }).ToList();
-
             listaLibrosCesta = controladorVistaCesta.buscarLibrosISBN(isbnsFiltrados);
         }
 

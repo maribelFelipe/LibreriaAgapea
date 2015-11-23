@@ -12,7 +12,7 @@ namespace LibreriaAgapeaNuevo.App_Code.Modelos
         public string passw { get; set; }
         public string nombre { get; set; }
         public string apellidos { get; set; }
-        public List<Cesta> listaDeCestas { get; set; }
+       
         
         public Usuario(string nombre, string email, string passw, string apellidos)
         {
@@ -20,9 +20,11 @@ namespace LibreriaAgapeaNuevo.App_Code.Modelos
             this.email = email;
             this.passw = passw;
             this.apellidos = apellidos;
-            listaDeCestas = new List<Cesta>();
+           
         }
 
         public Usuario() { }
+
+       
     }
 }

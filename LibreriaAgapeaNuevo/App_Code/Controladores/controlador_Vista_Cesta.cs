@@ -18,15 +18,16 @@ namespace LibreriaAgapeaNuevo.App_Code.Controladores
         {
 
             List<string> listado = ficheros.leeDatosFichero(ficheroLibros);
-            List<string> listadoFiltrado = new List<string>();
+            List<string> listadoFiltrado = new List<string>();         
 
             foreach (string linea in listaIsbns)
             {
                 if (linea != null)
                 {
+
                     string encontrado = (from unalinea in listado
                                          let isbn = unalinea.Split(new char[] { ':' })[4]
-                                         where isbn == linea
+                                         where isbn.Contains(linea)
                                          select unalinea).SingleOrDefault();
 
                     listadoFiltrado.Add(encontrado);

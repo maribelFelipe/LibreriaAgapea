@@ -155,8 +155,12 @@ namespace LibreriaAgapeaNuevo
                             {
                                 cookieCesta = this.Request.Cookies["cesta"];
 
-                                //string[] todosIsbns = clave.Split(new char [] { ':' });
-                                //cookieCesta.Values["isbn"] += "-" + isbn_seleccionado;
+                                List<string> todosLosLibros = new List<string>();                           
+                                todosLosLibros = cookieCesta.Values["isbn"].Split('-').ToList();
+
+                                string cookieFiltrada = filtrarCookie(isbn_seleccionado, todosLosLibros);
+
+                                cookieCesta.Values["isbn"] = cookieFiltrada;
                              
                             }
                             catch
@@ -166,22 +170,19 @@ namespace LibreriaAgapeaNuevo
                                 if (this.Request.QueryString["usuario"] != null)
                                 {
                                     cookieCesta.Values["usuario"] = (string)this.Request.QueryString["usuario"];
-                                    //cookieCesta.Values["isbn"] = isbn_seleccionado + ":" + 1;
+                                    cookieCesta.Values["isbn"] = isbn_seleccionado + ":" + 1;
                                 }
 
                                 else
                                 {
                                     cookieCesta.Values["usuario"] = "Anonimo";
-                                    //cookieCesta.Values["isbn"] = isbn_seleccionado + ":" + 1;
+                                    cookieCesta.Values["isbn"] = isbn_seleccionado + ":" + 1;
                                 }                               
                             }
 
                             cookieCesta.Values["lastVisit"] = DateTime.Now.ToString();
                             cookieCesta.Expires = DateTime.Now.AddDays(1);
-                            Response.Cookies.Add(cookieCesta);
-
-                            Cesta nuevaCesta = new Cesta(usuario);                           
-
+                            
                             this.Response.Cookies.Add(cookieCesta);
                             this.Response.Redirect("VistaCestaCompra.aspx");
                         }
@@ -254,6 +255,38 @@ namespace LibreriaAgapeaNuevo
                 }
                 }
             }
+        }
+
+        protected string filtrarCookie( string isbn_seleccionado, List<string> todosLosLibros)
+        {
+            string cookieFiltrada = "";
+
+            
+                for (int i = 0; i < todosLosLibros.Count; i++)
+                {
+
+                    if (todosLosLibros[i].Contains(isbn_seleccionado))
+                    {
+                        int cantidad = int.Parse(todosLosLibros[i].Substring(11));
+                        cantidad += 1;
+                        cookieFiltrada += "-" + todosLosLibros[i].Substring(0, 11) + cantidad.ToString();
+                    }
+
+                    else
+                    {
+                        cookieFiltrada += "-" + todosLosLibros[i];
+                    }
+                }
+
+
+                if (!cookieFiltrada.Contains(isbn_seleccionado))
+                {
+                   cookieFiltrada += "-" + isbn_seleccionado + ":1" ;
+                }
+
+            cookieFiltrada = cookieFiltrada.Substring(1);
+
+            return cookieFiltrada;
         }
 
         protected void recuperarSesion()
